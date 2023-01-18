@@ -3,8 +3,8 @@ import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { UserCircleIcon, Bars3Icon, MagnifyingGlassIcon } from "react-native-heroicons/solid";
 import Categories from '../components/Categories';
-import Offers from '../components/Offers';
-import Popular from '../components/Popular';
+import ChefSpecial from '../components/ChefSpecial';
+import Menu from '../components/Menu';
 
 const HomeScreen = () => {
     const navigation =  useNavigation();
@@ -25,18 +25,10 @@ const HomeScreen = () => {
                     <Bars3Icon size={36} color="#000" className="p-4"/>
                 </View>
 
-                {/* <View>
-                    <Text className="text-gray-500">Hi, Martin</Text>
-                </View> */}
-
                 <View>
                     <UserCircleIcon size={36} color="#000" className="p-4"/>
                 </View>
             </View>
-
-            {/* <View className="mx-4">
-                <Text className="text-gray-800 text-2xl font-bold">Fast & Delicious{"\n"}Food</Text>
-            </View> */}
 
             {/* search */}
             <View className="mx-2 pb-2">
@@ -50,16 +42,22 @@ const HomeScreen = () => {
             </View>
             
             {/* Body */}
-            <ScrollView>
-                {/* Categories */}
-                <Text className="text-purple-800 text-xl mx-2">Categories</Text>
-                <Categories/>
-                {/* Offers Today */}
-                <Offers/>
-                {/* special */}
-                <Popular/>
+            <ScrollView nestedScrollEnabled={true}>
 
+                {/* Categories */}
+                <Categories/>
+
+                {/* Offers Today */}
+                <View>
+                    <ChefSpecial id="1" title="Chef's Special" description="All the special dishes in one place"/>
+                </View>
+
+                {/* All items */}      
+                <ScrollView horizontal={true}>
+                    <Menu id="2" title="Our Menu" description="Everything all at once"/>
+                </ScrollView>
             </ScrollView>
+            
 
     </SafeAreaView>
   )
