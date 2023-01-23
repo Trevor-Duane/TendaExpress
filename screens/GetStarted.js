@@ -3,6 +3,7 @@ import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import startImage from '../assets/images/preview.png'
+import { StatusBar } from 'expo-status-bar';
 
 const GetStarted = () => {
     const navigation =  useNavigation();
@@ -14,7 +15,8 @@ const GetStarted = () => {
 
     }, [])
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-purple-600">
+        <StatusBar className="bg-purple-600" barStyle="light-content"/>
         <View className="flex-1 items-center content-between bg-purple-600">
             <View className="pb-8">
                 <Text className="text-center text-white text-2xl pt-5 pb-4">TendaExpress</Text>

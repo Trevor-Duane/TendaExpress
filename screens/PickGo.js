@@ -40,7 +40,7 @@ const PickGo = () => {
             </View>
 
             <View className="pb-4 w-96">
-                <Pressable onPress={() => navigation.navigate('Pickhome')} className="bg-black py-3 items-center justify-center rounded-md">
+                <Pressable onPress={() => navigation.navigate('Pickgohome')} className="bg-black py-3 items-center justify-center rounded-md">
                     <Text className="text-white font-bold text-lg">Continue</Text>
                 </Pressable>
             </View>

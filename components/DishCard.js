@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { ShoppingCartIcon } from 'react-native-heroicons/solid'
 
@@ -28,12 +28,24 @@ const DishCard = ({
             <View className=" w-full relative">
                 <View className="flex-row items-center justify-between pt-2">
                     <Text className="font-semibold text-purple-600">{price}</Text>
-                    <ShoppingCartIcon size={18} color="#a020f0"/>
+                    <TouchableOpacity style={styles.button} className="shadow-lg">
+                      <ShoppingCartIcon size={24} color="#a020f0"/>
+                    </TouchableOpacity>
                 </View>
             </View>
       </View>
     </TouchableOpacity>
   )
 }
-
 export default DishCard
+
+const styles = StyleSheet.create({
+  button:{
+    backgroundColor: "#ffffff",
+    borderRadius: 50,
+    padding: 5,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+})
