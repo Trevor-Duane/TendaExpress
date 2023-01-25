@@ -14,7 +14,9 @@ import DiscoverScreen from './screens/DiscoverScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import SingleScreen from './screens/SingleScreen';
 import CategoryScreen from './screens/CategoryScreen';
-// import BasketScreen from './screens/BasketScreen';
+import BasketScreen from './screens/BasketScreen';
+import AcceptOrder from './screens/AcceptOrder';
+import PaymentsScreen from './screens/PaymentsScreen';
 
 import { AuthContext } from './components/Context';
 import { Provider } from 'react-redux';
@@ -126,7 +128,11 @@ export default function App() {
                 <Drawer.Screen name="Profile" component={ProfileScreen} />
                 <Drawer.Screen name="Single" component={SingleScreen} />
                 <Drawer.Screen name="Catscreen" component={CategoryScreen} />
-                {/* <Drawer.Screen name="Baskets" component={BasketScreen} options={{presentation: "modal"}} /> */}
+                <Drawer.Group screenOptions={{presentation: "model"}}>
+                  <Drawer.Screen name="Baskets" component={BasketScreen} />
+                  <Drawer.Screen name="Acceptorder" component={AcceptOrder}/>
+                  <Drawer.Screen name="Payments" component={PaymentsScreen}/>
+                </Drawer.Group>
                 </Drawer.Navigator> 
               )
             :

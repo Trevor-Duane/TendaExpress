@@ -4,13 +4,16 @@ import { useRoute, useNavigation } from '@react-navigation/native'
 import DishRow from '../components/DishRow'
 
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Image } from 'react-native';
 import { ArrowLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon } from 'react-native-heroicons/solid';
 import BasketIcon from '../components/BasketIcon';
+import { setCategory } from '../features/categorySlice';
+import { useDispatch } from 'react-redux';
 
 const CategoryScreen = () => {
     const navigation =  useNavigation();
+    const dispatch = useDispatch();
 
     const {params:{
         id,
@@ -18,6 +21,17 @@ const CategoryScreen = () => {
         name,
         dishes,
     }} = useRoute();
+
+    useEffect(() => {
+        dispatch(
+            setCategory({
+                id,
+                image,
+                name,
+                dishes,
+            })
+        )
+    }, [dispatch])
 
 console.log("dishes", dishes)
   return (

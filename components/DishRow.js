@@ -31,9 +31,9 @@ const DishRow = ({
       <TouchableOpacity onPress={() => setIsPressed(!isPressed)} className={`bg-white border p-4 border-gray-200  ${isPressed && "border-b-0"}`}>
         <View className="flex-row">
           <View className="flex-1 pr-2">
-            <Text className="text-lg mb-1">{name}</Text>
+            <Text className="text-lg">{name}</Text>
             <Text className="text-gray-500">{short_description}</Text>
-            <Text className="text-gray-500 mt-1">
+            <Text className="text-purple-800 mt-1 font-bold">
               <Currency quantity={price} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
