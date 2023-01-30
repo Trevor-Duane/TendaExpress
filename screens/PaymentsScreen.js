@@ -44,7 +44,16 @@ const PaymentsScreen = () => {
             <View className="px-2 py-4">
                 <Text className="text-gray-500 text-xl font-extrabold">Payment Method</Text>
             </View>
+
+            
+                
+           
         </View>
+            <View className="absolute mb-1 bottom-0 flex left-20 ">
+            <TouchableOpacity onPress={() => {navigation.navigate('Map')}} className="rounded-sm items-center justify-center bottom-0 relative w-56 px-2 py-1 bg-purple-500">
+                <Text className="p-2 text-xl text-white font-bold">checkout</Text>
+            </TouchableOpacity>
+            </View>
         
     </SafeAreaView>
   )

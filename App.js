@@ -17,6 +17,7 @@ import CategoryScreen from './screens/CategoryScreen';
 import BasketScreen from './screens/BasketScreen';
 import AcceptOrder from './screens/AcceptOrder';
 import PaymentsScreen from './screens/PaymentsScreen';
+import MapScreen from './screens/MapScreen';
 
 import { AuthContext } from './components/Context';
 import { Provider } from 'react-redux';
@@ -132,6 +133,7 @@ export default function App() {
                   <Drawer.Screen name="Baskets" component={BasketScreen} />
                   <Drawer.Screen name="Acceptorder" component={AcceptOrder}/>
                   <Drawer.Screen name="Payments" component={PaymentsScreen}/>
+                  <Drawer.Screen name="Map" component={MapScreen}/>
                 </Drawer.Group>
                 </Drawer.Navigator> 
               )
