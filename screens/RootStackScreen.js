@@ -16,7 +16,6 @@ const RootStackScreen = ({navigation}) => (
         <RootStack.Screen name="Signup" component={SignScreen}/>
         <RootStack.Screen name="Pickgo" component={PickGo}/>
         <RootStack.Screen name="Pickgohome" component={PickGoHome}/>
-
     </RootStack.Navigator>
 
 );

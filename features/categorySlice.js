@@ -5,7 +5,7 @@ const initialState = {
     id: null,
     image: null,
     name: null,
-    dishes: null
+    big_description: null
   },
 }
 

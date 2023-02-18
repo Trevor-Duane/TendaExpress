@@ -4,9 +4,9 @@ import React from 'react'
 
 const CategoryCard = ({
   id,
-  image,
-  name,
-  dishes
+  category_image,
+  category_name,
+  category_description
 }) => {
   const navigation =  useNavigation();
 
@@ -15,20 +15,20 @@ const CategoryCard = ({
       onPress={() => {
         navigation.navigate('Catscreen', {
           id,
-          image,
-          name,
-          dishes
+          category_image,
+          category_name,
+          category_description
         })}}
       className="relative mr-2" >
-       <View>
+       <View className="filter backdrop-filter">
          <Image 
             source={{
-             uri: image,
+             uri: category_image,
          }}
-         className="h-20 w-20 rounded bg-blend-darken"
+         className="h-20 w-20 rounded"
         />
        </View>
-      <Text className="absolute bottom-1 left-1 text-white font-extrabold">{name}</Text>
+      <Text className="absolute bottom-1 left-1 text-white font-extrabold">{category_name}</Text>
     </TouchableOpacity>
   )
 }

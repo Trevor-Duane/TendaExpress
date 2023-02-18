@@ -1,46 +1,75 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Pressable } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native'
 import DishRow from '../components/DishRow'
-
-
+import axios from 'axios';
+import Base_Url from '../constants/api';
 import React, { useEffect } from 'react'
 import { Image } from 'react-native';
-import { ArrowLeftIcon, ChevronRightIcon, QuestionMarkCircleIcon } from 'react-native-heroicons/solid';
+import { Items } from '../models/Items';
+import { ArrowLeftIcon } from 'react-native-heroicons/solid';
 import BasketIcon from '../components/BasketIcon';
 import { setCategory } from '../features/categorySlice';
 import { useDispatch } from 'react-redux';
 
 const CategoryScreen = () => {
+
+    const[selectedSubCategory, setSelectedSubCategory] = React.useState(null);
+    const[dishes, setDishes] = React.useState([]);
+    const [Subcategories, setSubcategories] = React.useState([]);
+
+
+    const headers = {
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+        }
+
     const navigation =  useNavigation();
-    const dispatch = useDispatch();
 
     const {params:{
         id,
-        image,
-        name,
-        dishes,
+        category_image,
+        category_name,
+        category_description,
     }} = useRoute();
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(
             setCategory({
                 id,
-                image,
-                name,
-                dishes,
+                category_image,
+                category_name,
+                category_description,
             })
         )
     }, [dispatch])
 
-console.log("dishes", dishes)
+    //fetch subcategories
+    const fetchSubcategories = async () => {
+    await axios.get(`${Base_Url}/subcategory/${id}`, {headers: headers})
+    .then((response) => {
+        console.log(response.data)
+        setSubcategories(response.data.data)
+    })
+    .catch(err => {
+        console.error(err)
+        console.log("error", err.message)
+    })
+    
+    }
+    useEffect(() => {
+    fetchSubcategories()
+    }, [id, selectedSubCategory])
   return (
    <SafeAreaView>
     <BasketIcon/>
     <ScrollView>
     <View className="relative">
         <Image source={{
-            uri: image
+            uri: category_image
         }}
         className="w-full h-56 p-4 rounded-t-xl bg-gray-300"
         />
@@ -53,7 +82,7 @@ console.log("dishes", dishes)
 
     <View className="bg-white pb-2">
         <View className="px-2 py-1 items-start">
-            <Text className="text-xl font-bold text-purple-600">Cafe Tenda {name}</Text>
+            <Text className="text-xl font-bold text-purple-600">Cafe Tenda {category_name}</Text>
         </View>
         <View className="px-2">
             <Text className="text-justify text-gray-500">
@@ -64,15 +93,37 @@ console.log("dishes", dishes)
         </View>
     </View>
 
-    <TouchableOpacity className="flex-row items-center space-x-2 p-2 border-y border-gray-200">
+    <View className="bg-white">
+        <Text className="px-2 py-1 text-xl font-bold mb-2">{category_name} Menu</Text>
+    </View>
+
+    <View className="space-x-2 p-2 border-y border-gray-200">
+        <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+            }}
+        >
+            {Subcategories.map((subcategory) => (
+                <View key={subcategory.id} className="px-1">
+                    <TouchableOpacity className="bg-purple-600 rounded px-1 py-1" value={subcategory.id} onPress={() => {
+                        setSelectedSubCategory(subcategory.id)
+                        setDishes(subcategory.items)
+                    }}>
+                        <Text style={{color: selectedSubCategory == subcategory.id ? '#E2C0F8' : '#fff'}} className="py-1 text-white font-bold text-base capitalize">{subcategory.subcategory_name}</Text>
+                    </TouchableOpacity>
+                </View>
+            ))}
+        </ScrollView>
+    </View>
+
+    {/* <TouchableOpacity className="flex-row items-center space-x-2 p-2 border-y border-gray-200">
         <QuestionMarkCircleIcon size={20} color="gray" opacity={0.5}/>
         <Text className="flex-1">Your order type?</Text>
         <ChevronRightIcon color="#6C0BA9"/>
-    </TouchableOpacity>
+    </TouchableOpacity> */}
 
-    <View className="bg-white">
-        <Text className="px-2 py-1 text-xl font-bold mb-2">{name} Menu</Text>
-    </View>
+   
 
    <View className="pb-32">
      {/* dishesrow */}
@@ -80,10 +131,11 @@ console.log("dishes", dishes)
         <DishRow
             key={dish.id}
             id={dish.id}
-            name={dish.name}
-            short_description={dish.short_description}
-            image={dish.image}
-            price={dish.price}
+            subcategory_id={dish.subcategory_id}
+            name={dish.item_name}
+            short_description={dish.item_description}
+            image={dish.item_image}
+            price={dish.item_price}
         />
     ))}
    </View>

@@ -7,6 +7,7 @@ import { addToBasket, selectBasketItemsWithId, removeFromBasket, selectBasketIte
 
 const DishRow = ({
     id,
+    subcategory_id,
     name,
     image,
     short_description,
@@ -17,7 +18,7 @@ const DishRow = ({
   const dispatch = useDispatch();
 
   const addItemsToBasket = () => {
-    dispatch(addToBasket({id, name, short_description, price, image}));
+    dispatch(addToBasket({id, subcategory_id, name, short_description, price, image}));
   } 
 
   const removeItemsFromBasket = () => {
@@ -46,7 +47,7 @@ const DishRow = ({
               source={{
               uri: image
             }}
-            className="h-20 w-20 bg-gray-300 p-4"/>
+            className="h-20 w-20 bg-gray-300 rounded p-4"/>
           </View>
         </View>
       </TouchableOpacity>

@@ -24,9 +24,12 @@ const BasketScreen = () => {
       return results;
     }, {});
       setGroupItemsInBasket(groupedItems)
-      console.log("grouped", groupedItems)
+      // console.log("grouped", groupedItems)
 
   }, [items])
+
+  // console.log("groupedbasket", groupItemsInBasket)
+  // console.log("items", items)
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -41,7 +44,7 @@ const BasketScreen = () => {
           </TouchableOpacity>
         </View>
 
-        <View>
+        {/* <View>
           <TouchableOpacity className="flex-row items-center space-x-2 p-2 border-y border-gray-200">
             <QuestionMarkCircleIcon size={20} color="gray" opacity={0.5}/>
             <Text className="flex-1">Your order type</Text>
@@ -55,7 +58,7 @@ const BasketScreen = () => {
             <Text className="flex-1">Delivery Address</Text>
             <ChevronRightIcon color="#6C0BA9"/>
           </TouchableOpacity>
-        </View>
+        </View> */}
         
         <ScrollView className="divide-y divide-purple-400">
           {Object.entries(groupItemsInBasket).map(([key, items]) => (
@@ -104,7 +107,7 @@ const BasketScreen = () => {
             </Text>
           </View>
 
-        <TouchableOpacity className="rounded-lg bg-purple-600 p-4" onPress={() => navigation.navigate('Acceptorder')}>
+        <TouchableOpacity className="rounded-lg bg-purple-600 p-2" onPress={() => navigation.navigate('Chooseordertype')}>
                 <Text className="text-white text-center font-bold text-lg">Place Order</Text>
         </TouchableOpacity>
         </View>

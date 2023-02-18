@@ -15,6 +15,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import SingleScreen from './screens/SingleScreen';
 import CategoryScreen from './screens/CategoryScreen';
 import BasketScreen from './screens/BasketScreen';
+import AddAddressScreen from './screens/AddAddressScreen';
 import AcceptOrder from './screens/AcceptOrder';
 import PaymentsScreen from './screens/PaymentsScreen';
 import MapScreen from './screens/MapScreen';
@@ -22,6 +23,9 @@ import MapScreen from './screens/MapScreen';
 import { AuthContext } from './components/Context';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import ChooseOrderType from './screens/ChooseOrderType';
+import AddressScreen from './screens/AddressScreen';
+import SingleStoryScreen from './screens/SingleStoryScreen';
 const Drawer = createDrawerNavigator();
 
 
@@ -121,6 +125,7 @@ export default function App() {
       <SafeAreaProvider>
         <NavigationContainer>
           <Provider store={store}>
+            
             {loginState.userToken !== null ? (
               <Drawer.Navigator  screenOptions={{headerShown: false}} drawerContent={props => <DrawerContent {...props}/>}>
                 <Drawer.Screen name="Home" component={MainTabScreen} />
@@ -129,12 +134,18 @@ export default function App() {
                 <Drawer.Screen name="Profile" component={ProfileScreen} />
                 <Drawer.Screen name="Single" component={SingleScreen} />
                 <Drawer.Screen name="Catscreen" component={CategoryScreen} />
+
                 <Drawer.Group screenOptions={{presentation: "model"}}>
                   <Drawer.Screen name="Baskets" component={BasketScreen} />
+                  <Drawer.Screen name="Chooseordertype" component={ChooseOrderType}/>
+                  <Drawer.Screen name="Addaddress" component={AddAddressScreen}/>
+                  <Drawer.Screen name="Singlestory" component={SingleStoryScreen}/>
+                  <Drawer.Screen name="Address" component={AddressScreen}/>
                   <Drawer.Screen name="Acceptorder" component={AcceptOrder}/>
                   <Drawer.Screen name="Payments" component={PaymentsScreen}/>
                   <Drawer.Screen name="Map" component={MapScreen}/>
                 </Drawer.Group>
+
                 </Drawer.Navigator> 
               )
             :

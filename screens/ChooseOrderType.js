@@ -1,0 +1,147 @@
+import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRoute, useNavigation } from '@react-navigation/native'
+
+import React, {useEffect, useState} from 'react'
+import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from 'react-native-heroicons/solid';
+
+const ChooseOrderType = () => {
+const navigation =  useNavigation();
+const [option, setOption] = useState(null);
+const [isSelected, setIsSelected] = useState(null);
+
+const OrderTypes = [
+  {
+    id: 1,
+    orderType: "Delivery",
+    short_description: "order, make payment and wait for your delivery",
+    value: "Delivery",
+    icon_active: "../assets/icons/delivery-active.png",
+    icon_not_active: "../assets/icons/delivery.png"
+  },
+  {
+    id: 2,
+    orderType: "Dine-in",
+    short_description: "order, make payment and come in ready to be served",
+    value: "Dine-In",
+    icon_active: "../assets/icons/dinein-active.png",
+    icon_not_active: "../assets/icons/dine.png"
+  },
+  {
+    id: 3,
+    orderType: "Take Away",
+    short_description: "order, make payment and come in ready to pick",
+    value: "Pick-up",
+    icon_active: "../assets/icons/takeaway-active.png",
+    icon_not_active: "../assets/icons/takeaway.png"
+  },
+]
+
+// useEffect(() => {
+//   handleIsSelected(option, isSelected)
+// }, [])
+
+// function handleIsSelected(){
+//   if(option){
+//     setIsSelected(option)
+//   }
+// }
+
+  return (
+    <SafeAreaView className="flex-1 bg-white">
+      <View className="p-4 border-b border-[#D7A1F9] bg-white shadow-xs">
+          <View>
+            <Text className="font-extrabold text-lg text-center">{option} Order</Text>
+          </View>
+
+          <TouchableOpacity onPress={navigation.goBack} className="top-3 right-3 absolute">
+            <XCircleIcon size={40} color="#6C0BA9"/>
+          </TouchableOpacity>
+      </View>
+      <View className="p-2 bg-gray-100 flex-column">
+        <View className="flex-row items-center">
+          {/* <InformationCircleIcon size={16} color="#A020F0"/> */}
+          <Text className="text-base px-1">Please Choose Your Preferred Order Type</Text>
+        </View>
+
+        <View className="flex-row items-center mt-2">
+          <InformationCircleIcon size={16} color="#A020F0"/>
+          <Text className="text-base px-1 font-semibold">Order Types</Text>
+        </View>
+
+        {OrderTypes.map((order_type) => (
+          <View key={order_type.id} className="mx-5 my-2 pt-1 border-b border-gray-300">
+            <Text className="font-bold text-gray-500">{order_type.orderType} Order</Text>
+            <Text className="text-[12px]">{order_type.short_description}</Text>
+          </View>
+        ))}
+      </View>
+      <View className="flex-1 p-2 bg-gray-100">
+        {OrderTypes.map((ordertype, index) => (
+          <TouchableOpacity
+          onPress={() => {
+            // setIsSelected(ordertype)
+            // setOption(ordertype.orderType)
+            // setIsSelected(ordertype.orderType)
+          }}
+            key={ordertype.id}
+            style={{
+              flexDirection: 'row',
+              height: 70,
+              alignItems: 'center',
+              marginTop: 8,
+              paddingHorizontal: 4,
+              borderWidth: 2,
+              borderRadius: 6,
+              // borderColor: isSelected ? '#BEBEBE' : '#A020F0'
+            }}
+            
+          >
+              <View style={{
+                width: 60,
+                height: 45,
+                alignItems: 'center',
+                justifyContent: 'center',
+                // borderWidth: 2,
+                borderRadius: 6,
+                // borderColor: 'gray'
+              }}>
+                  <Image
+                    source={{uri: "https://cdn-icons-png.flaticon.com/512/45/45332.png"}}
+                    resizeMode = 'center'
+                    style={{
+                        width: 45,
+                        height: 45
+                    }}
+                  />
+                </View>
+
+                <Text
+                  className="text-lg font-bold"
+                  style={{
+                    flex: 1,
+                    marginLeft:8
+                  }}>
+                    {ordertype.orderType}
+                </Text>
+                
+
+                <View>
+                  <CheckCircleIcon size={25} color="#BEBEBE"/>
+                  {/* {isSelected ? <CheckCircleIcon size={25} color="#A020F0"/> : <CheckCircleIcon size={25} color="BEBEBE"/> } */}
+                </View>
+
+      </TouchableOpacity>
+        ))}
+        <View className="absolute bottom-1 items-center justify-center w-screen px-2">
+          <TouchableOpacity onPress={() => {navigation.navigate('Addaddress')}} className="bg-purple-600 rounded w-full">
+            <Text className="text-white text-base font-bold text-center px-2 py-2">Place Order</Text>
+          </TouchableOpacity>
+        </View>
+       
+      </View>
+    </SafeAreaView>
+  )
+}
+
+export default ChooseOrderType
