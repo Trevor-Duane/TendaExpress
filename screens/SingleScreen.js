@@ -79,7 +79,7 @@ const SingleScreen = () => {
 
         <View className="items-center justify-center mr-4">
           <TouchableOpacity className="bg-purple-600 w-full rounded-br-xl">
-            <Text className="text-white text-base font-bold text-center px-2 py-2">Add to bag</Text>
+            <Text className="text-white text-base font-bold text-center px-2 py-2">Price</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -29,7 +29,14 @@ const DishCard = ({
                 <View className="flex-row items-center justify-between pt-2">
                     <Text className="font-semibold text-purple-600">{price}</Text>
                     <TouchableOpacity style={styles.button} className="shadow-lg">
-                      <ShoppingCartIcon size={24} color="#a020f0"/>
+                      <ShoppingCartIcon size={24} color="#a020f0" onPress={() => {
+                            navigation.navigate('Single', {
+                              name,
+                              price,
+                              short_description,
+                              imgUrl,
+                            });
+                            }}/>
                     </TouchableOpacity>
                 </View>
             </View>

@@ -1,13 +1,12 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native'
-
 import React, {useEffect, useState} from 'react'
 import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from 'react-native-heroicons/solid';
 
 const ChooseOrderType = () => {
 const navigation =  useNavigation();
-const [option, setOption] = useState(null);
+const [option, setOption] = useState("");
 const [isSelected, setIsSelected] = useState(null);
 
 const OrderTypes = [
@@ -16,24 +15,24 @@ const OrderTypes = [
     orderType: "Delivery",
     short_description: "order, make payment and wait for your delivery",
     value: "Delivery",
-    icon_active: "../assets/icons/delivery-active.png",
-    icon_not_active: "../assets/icons/delivery.png"
+    iconActive: "https://cdn-icons-png.flaticon.com/512/3128/3128891.png",
+    iconInactive: "https://cdn-icons-png.flaticon.com/512/3128/3128841.png"
   },
   {
     id: 2,
     orderType: "Dine-in",
     short_description: "order, make payment and come in ready to be served",
     value: "Dine-In",
-    icon_active: "../assets/icons/dinein-active.png",
-    icon_not_active: "../assets/icons/dine.png"
+    iconActive: "https://cdn-icons-png.flaticon.com/512/6774/6774898.png",
+    iconInactive: "https://cdn-icons-png.flaticon.com/512/45/45332.png"
   },
   {
     id: 3,
     orderType: "Take Away",
     short_description: "order, make payment and come in ready to pick",
     value: "Pick-up",
-    icon_active: "../assets/icons/takeaway-active.png",
-    icon_not_active: "../assets/icons/takeaway.png"
+    iconActive: "https://cdn-icons-png.flaticon.com/512/3081/3081144.png",
+    iconInactive: "https://cdn-icons-png.flaticon.com/512/3081/3081314.png"
   },
 ]
 
@@ -80,9 +79,8 @@ const OrderTypes = [
         {OrderTypes.map((ordertype, index) => (
           <TouchableOpacity
           onPress={() => {
-            // setIsSelected(ordertype)
-            // setOption(ordertype.orderType)
-            // setIsSelected(ordertype.orderType)
+            setIsSelected(ordertype.id)
+            setOption(ordertype.value)
           }}
             key={ordertype.id}
             style={{
@@ -93,7 +91,8 @@ const OrderTypes = [
               paddingHorizontal: 4,
               borderWidth: 2,
               borderRadius: 6,
-              // borderColor: isSelected ? '#BEBEBE' : '#A020F0'
+              backgroundColor: isSelected == ordertype.id ? '#FFFFFF' : '#E5E4E2',
+              borderColor: isSelected == ordertype.id ? '#A020F0' : '#BEBEBE'
             }}
             
           >
@@ -107,8 +106,8 @@ const OrderTypes = [
                 // borderColor: 'gray'
               }}>
                   <Image
-                    source={{uri: "https://cdn-icons-png.flaticon.com/512/45/45332.png"}}
-                    resizeMode = 'center'
+                    source={isSelected == ordertype.id ? {uri: ordertype.iconActive} : {uri: ordertype.iconInactive}}
+                    resizeMode = 'contain'
                     style={{
                         width: 45,
                         height: 45
@@ -127,15 +126,14 @@ const OrderTypes = [
                 
 
                 <View>
-                  <CheckCircleIcon size={25} color="#BEBEBE"/>
-                  {/* {isSelected ? <CheckCircleIcon size={25} color="#A020F0"/> : <CheckCircleIcon size={25} color="BEBEBE"/> } */}
+                  <CheckCircleIcon size={25} color={isSelected == ordertype.id ? "#A020F0" : "#BEBEBE"}/>
                 </View>
 
       </TouchableOpacity>
         ))}
         <View className="absolute bottom-1 items-center justify-center w-screen px-2">
           <TouchableOpacity onPress={() => {navigation.navigate('Addaddress')}} className="bg-purple-600 rounded w-full">
-            <Text className="text-white text-base font-bold text-center px-2 py-2">Place Order</Text>
+            <Text className="text-white text-base font-bold text-center px-2 py-3">Place Order</Text>
           </TouchableOpacity>
         </View>
        

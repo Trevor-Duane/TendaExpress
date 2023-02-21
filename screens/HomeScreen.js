@@ -26,22 +26,22 @@ const HomeScreen = () => {
          <View className="flex-1">
                {/* Header */}
                <View className="flex-row pb-3 items-center mx-2 justify-between">
-                <View>
-                    <Bars3Icon 
-                        onPress={() => navigation.openDrawer()} title='left drawer'
-                        size={36} 
-                        color="#000"
-                        className="p-4" 
-                    />
+                    <View>
+                        <Bars3Icon 
+                            onPress={() => navigation.openDrawer()} title='left drawer'
+                            size={36} 
+                            color="#000"
+                            className="p-4" 
+                        />
+                    </View>
+                    <View>
+                        <UserCircleIcon
+                            onPress={() => {}}
+                            title='right drawer'
+                            size={36} color="#000"
+                            className="p-4"/>
+                    </View>
                 </View>
-                <View>
-                    <UserCircleIcon
-                        onPress={() => {}}
-                        title='right drawer'
-                        size={36} color="#000"
-                        className="p-4"/>
-                </View>
-            </View>
             {/* search */}
             <View className="mx-2 pb-2">
                 <View className="flex-row items-center space-x-2 bg-white shadow rounded-lg p-2">

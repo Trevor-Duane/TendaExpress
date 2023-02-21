@@ -85,7 +85,7 @@ const BasketScreen = () => {
           ))}
         </ScrollView>
 
-        <View className="p-5 bg-white mt-5 space-y-4">
+        <View className="p-4 bg-white mt-5 space-y-4">
           <View className="flex-row justify-between">
             <Text className="text-gray-400">Subtotal</Text>
             <Text className="text-[#51087E]">
@@ -107,7 +107,7 @@ const BasketScreen = () => {
             </Text>
           </View>
 
-        <TouchableOpacity className="rounded-lg bg-purple-600 p-2" onPress={() => navigation.navigate('Chooseordertype')}>
+        <TouchableOpacity className="rounded-lg bg-purple-600 p-3" onPress={() => navigation.navigate('Chooseordertype')}>
                 <Text className="text-white text-center font-bold text-lg">Place Order</Text>
         </TouchableOpacity>
         </View>

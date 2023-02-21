@@ -5,7 +5,8 @@ module.exports = {
     files: [
       "./App.{js,jsx,ts,tsx}", 
       "./screens/**/*.{js,jsx,ts,tsx}", 
-      "./components/**/*.{html,js}"
+      "./components/**/*.{html,js}",
+      "./assets/**/*.{png,jpg}"
     ],
      
   },

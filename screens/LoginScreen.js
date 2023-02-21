@@ -5,13 +5,22 @@ import React, { useLayoutEffect, useState, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { CheckCircleIcon, EyeIcon, EyeSlashIcon } from 'react-native-heroicons/solid';
 import { StatusBar } from 'expo-status-bar';
-import Users from '../data/users';
+// import Users from '../data/users';
 
 
 import { AuthContext } from '../components/Context';
+import axios from 'axios';
+import Base_Url from '../constants/api'
 
 const LoginScreen = () => {
     const navigation =  useNavigation();
+    const [foundUser, setFoundUser] = useState([]) 
+
+    const headers = {
+        Accept: 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+      }
 
     const [data, setData] = useState({
         email: '',
@@ -79,13 +88,7 @@ const LoginScreen = () => {
             })
         }
     }
-
-    const loginHandler = (email, password) => {
-        
-        const foundUser = Users.filter(item => {
-            return email == item.email && password == item.password;
-        });
-
+    const loginHandler = async() => {
         if(data.email.length == 0 || data.password.length == 0){
             Alert.alert('Wrong Input', 'username or password field cannot be empty.', [
                 {text: 'Okay'}
@@ -93,12 +96,25 @@ const LoginScreen = () => {
             return;
         }
 
-        if(foundUser.length == 0){
-            Alert.alert('Invalid User', 'username or password is incorrect', [
-                {text: 'Okay'}
-            ]);
-            return;
-        }
+        // if(foundUser.length == 0){
+        //     Alert.alert('Invalid User', 'username or password is incorrect', [
+        //         {text: 'Okay'}
+        //     ]);
+        //     return;
+        // }
+
+        await axios.post(`${Base_Url}/login`, {
+            email: data.email,
+            password: data.password
+        }, {headers: headers})
+        .then((response) => {
+            console.log(response.data)
+            setFoundUser(response.data)
+        })
+        .catch(err => {
+            console.log("error", err.message)
+        })
+
         signIn(foundUser);
     }
 
@@ -121,7 +137,7 @@ const LoginScreen = () => {
                         <Text className="px-2 pt-4 pb-2 text-base font-bold text-purple-900">Email</Text>
                         <View className="flex-row items-center relative">
                             <TextInput
-                                placeholder="Phone Number"
+                                placeholder="Email"
                                 onChangeText={(val) => textInputChange(val)}
                                 onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
                                 className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
@@ -168,7 +184,8 @@ const LoginScreen = () => {
                 </View>
 
                 <View className="pb-8 w-96">
-                    <Pressable onPress={() => {loginHandler(data.email, data.password)}} className="bg-purple-600 py-3 items-center justify-center border rounded-md border-solid border-white">
+                    <Pressable onPress={() => {loginHandler()}
+                        } className="bg-purple-600 py-3 items-center justify-center border rounded-md border-solid border-white">
                         <Text className="text-white font-bold text-lg">Login</Text>
                     </Pressable>
                 </View>

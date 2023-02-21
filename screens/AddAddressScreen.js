@@ -40,21 +40,18 @@ export default function AddAddressScreen() {
             </View>
         </View>
 
-        {/* address card */}
-        <AddressCard/>
-        <AddressCard/>
         <AddressCard/>
 
         <View className="absolute bottom-1">
         <View className="items-center justify-center w-screen px-2 mb-2">
           <TouchableOpacity onPress={() => {navigation.navigate('Address')}} className="bg-black rounded w-full">
-            <Text className="text-white text-base font-bold text-center px-2 py-2">Add New Address</Text>
+            <Text className="text-white text-base font-bold text-center px-2 py-3">Add New Address</Text>
           </TouchableOpacity>
         </View>
 
         <View className="items-center justify-center w-screen px-2 mb-2">
           <TouchableOpacity onPress={() => {navigation.navigate('Payments')}} className="bg-purple-600 rounded w-full">
-            <Text className="text-white text-base font-bold text-center px-2 py-2">Proceed to payment</Text>
+            <Text className="text-white text-base font-bold text-center px-2 py-3">Proceed to payment</Text>
           </TouchableOpacity>
         </View>
         </View>

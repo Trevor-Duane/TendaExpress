@@ -26,6 +26,8 @@ import { store } from './store';
 import ChooseOrderType from './screens/ChooseOrderType';
 import AddressScreen from './screens/AddressScreen';
 import SingleStoryScreen from './screens/SingleStoryScreen';
+import OrderTracking from './screens/OrderTracking';
+import PaymentSuccess from './screens/PaymentSuccess';
 const Drawer = createDrawerNavigator();
 
 
@@ -72,8 +74,8 @@ export default function App() {
 
   const authContext = React.useMemo(() => ({
     signIn: async(foundUser) => {
-      userToken =  String(foundUser[0].userToken);
-      email = foundUser[0].email;
+      userToken =  foundUser.token;
+      email = foundUser.user.email;
     
        try {
           await AsyncStorage.setItem('userToken', userToken)
@@ -143,6 +145,8 @@ export default function App() {
                   <Drawer.Screen name="Address" component={AddressScreen}/>
                   <Drawer.Screen name="Acceptorder" component={AcceptOrder}/>
                   <Drawer.Screen name="Payments" component={PaymentsScreen}/>
+                  <Drawer.Screen name="PaymentSuccess" component={PaymentSuccess} options={{gestureEnabled: false}}/>
+                  <Drawer.Screen name="Tracking" component={OrderTracking} options={{gestureEnabled: false}}/>
                   <Drawer.Screen name="Map" component={MapScreen}/>
                 </Drawer.Group>
 
