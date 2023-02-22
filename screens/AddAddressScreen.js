@@ -8,6 +8,12 @@ import { ArrowDownLeftIcon, ArrowLeftIcon, EllipsisVerticalIcon, GlobeAmericasIc
 export default function AddAddressScreen() {
     const navigation =  useNavigation();
 
+    const [title, setTitle] = useState("");
+    const [address, setAddress] = useState("");
+    const [house, setHouse] = useState("");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false,
