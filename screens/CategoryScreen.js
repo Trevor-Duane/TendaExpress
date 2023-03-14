@@ -3,13 +3,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native'
 import DishRow from '../components/DishRow'
 import axios from 'axios';
-import Base_Url from '../constants/api';
+import {Base_Url} from '../constants/api';
 import React, { useEffect } from 'react'
 import { Image } from 'react-native';
 import { Items } from '../models/Items';
 import { ArrowLeftIcon } from 'react-native-heroicons/solid';
 import BasketIcon from '../components/BasketIcon';
-import { setCategory } from '../features/categorySlice';
+import { setCategory } from '../reducers/categorySlice';
 import { useDispatch } from 'react-redux';
 
 const CategoryScreen = () => {
@@ -87,8 +87,8 @@ const CategoryScreen = () => {
         <View className="px-2">
             <Text className="text-justify text-gray-500">
                 Breakfast is the most important meal of the day. 
-               So give your body some TLC and sit down 
-                 and enjoy a good, substantial breakfast.
+                So give your body some TLC and sit down 
+                and enjoy a good, substantial breakfast.
             </Text>
         </View>
     </View>
@@ -132,10 +132,10 @@ const CategoryScreen = () => {
             key={dish.id}
             id={dish.id}
             subcategory_id={dish.subcategory_id}
-            name={dish.item_name}
-            short_description={dish.item_description}
-            image={dish.item_image}
-            price={dish.item_price}
+            item_name={dish.item_name}
+            item_description={dish.item_description}
+            item_image={dish.item_image}
+            item_price={dish.item_price}
         />
     ))}
    </View>

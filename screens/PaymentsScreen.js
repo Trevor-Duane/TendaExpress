@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Currency from 'react-currency-formatter';
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { useSelector } from 'react-redux'
-import { selectBasketItems, selectBasketTotal } from '../features/basketSlice'
+import { selectBasketItems, selectBasketTotal } from '../reducers/basketSlice'
 import * as Location from 'expo-location';
 import React from 'react'
 import { ArrowLeftIcon, ChevronLeftIcon, ClockIcon } from 'react-native-heroicons/solid';

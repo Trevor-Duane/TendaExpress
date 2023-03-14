@@ -1,13 +1,22 @@
-import { View, Text, TextInput, Image, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import { View, Text, TextInput, Image, TouchableOpacity, Pressable } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AddressCard from '../components/AddressCard';
 import { ArrowDownLeftIcon, ArrowLeftIcon, EllipsisVerticalIcon, GlobeAmericasIcon, MagnifyingGlassIcon, StopCircleIcon, UserCircleIcon } from 'react-native-heroicons/solid';
+import { useSelector } from 'react-redux';
 
 export default function AddAddressScreen() {
-    const navigation =  useNavigation();
 
+  const userData = useSelector((state) => state.auth.userData);
+  console.log("userData in address", userData)
+
+  let Order_type = AsyncStorage.getItem('OrderType');
+  console.log("address screen", Order_type)
+  
+    const navigation =  useNavigation();
+    const [user_id, setUser_id] = useState(userData.user.id);
     const [title, setTitle] = useState("");
     const [address, setAddress] = useState("");
     const [house, setHouse] = useState("");
@@ -23,9 +32,9 @@ export default function AddAddressScreen() {
   return (
     <SafeAreaView className="flex-1 bg-white">
         <View className="flex-row pb-2 items-center mx-2 justify-between pt-1">   
-            <View>
+            <Pressable onPress={navigation.goBack}>
                 <ArrowLeftIcon size={18} color="#000"/>
-            </View>
+            </Pressable>
 
             <View>
                 <Text className="text-base text-black">Set Delivery Location</Text>
@@ -51,13 +60,13 @@ export default function AddAddressScreen() {
         <View className="absolute bottom-1">
         <View className="items-center justify-center w-screen px-2 mb-2">
           <TouchableOpacity onPress={() => {navigation.navigate('Address')}} className="bg-black rounded w-full">
-            <Text className="text-white text-base font-bold text-center px-2 py-3">Add New Address</Text>
+            <Text className="text-white text-xl font-bold text-center px-2 py-3">Add New Address</Text>
           </TouchableOpacity>
         </View>
 
         <View className="items-center justify-center w-screen px-2 mb-2">
           <TouchableOpacity onPress={() => {navigation.navigate('Payments')}} className="bg-purple-600 rounded w-full">
-            <Text className="text-white text-base font-bold text-center px-2 py-3">Proceed to payment</Text>
+            <Text className="text-white text-xl font-bold text-center px-2 py-3">Proceed to payment</Text>
           </TouchableOpacity>
         </View>
         </View>

@@ -1,16 +1,28 @@
 import React, { useContext } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
 import { Avatar, Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch } from 'react-native-paper'
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useSelector } from 'react-redux';
+import actions from '../actions';
 
-import { AuthContext } from '../components/Context';
 
 
 
 const DrawerContent = (props) => {
+  const userData = useSelector((state) => state.auth.userData)
 
-  const { signOut } = useContext(AuthContext);
+  const signOut = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout from this account',
+      [{text: 'Yes', onPress: logout}, {text: 'No',}],{cancelable: true}
+    )
+  }
+  const logout = () => {
+    actions.logout()
+  }
+
   return (
     <View style={{flex:1}}>
       <DrawerContentScrollView {...props}>
@@ -28,11 +40,11 @@ const DrawerContent = (props) => {
 
               <View style={{flexDirection: 'column', marginLeft: 15}}>
                 <View>
-                  <Title style={styles.title}>Username</Title>
+                  <Title style={styles.title}>{userData.user.username}</Title>
                 </View>
 
                 <View>
-                  <Caption style={styles.caption}>Username@gmail.com</Caption>
+                  <Caption style={styles.caption}>{userData.user.email}</Caption>
                 </View>
               </View>
             </View>
@@ -126,7 +138,7 @@ const DrawerContent = (props) => {
               />
           )}
           label="Logout"
-          onPress={() => {signOut()}}
+          onPress={signOut}
           />
       </Drawer.Section>
     </View>

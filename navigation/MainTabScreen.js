@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import HomeScreen from './HomeScreen';
-import CartScreen from './CartScreen';
-import ProfileScreen from './ProfileScreen';
-import Discover from './DiscoverScreen';
+import HomeScreen from '../screens/HomeScreen';
+import CartScreen from '../screens/CartScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import Discover from '../screens/DiscoverScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 

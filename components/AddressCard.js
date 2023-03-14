@@ -1,15 +1,22 @@
 import { View, Text, TextInput, Image, Touchable, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect } from 'react'
+import React, { useLayoutEffect } from 'react';
+import { Base_Url } from '../constants/api';
+import { useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArrowDownLeftIcon, ArrowLeftIcon, EllipsisVerticalIcon, GlobeAmericasIcon, MagnifyingGlassIcon, StopCircleIcon, UserCircleIcon } from 'react-native-heroicons/solid';
 
 
 export default function AddressCard() {
+
+    const userData = useSelector((state) => state.auth.userData);
+    let user_id = userData.user_id
+    
     const [option, setOption] = React.useState("");
     const [isSelected, setIsSelected] = React.useState(null);
+    const [addressess, setAddresses] =  React.useState([]);
 
-    const addreses = [
+    const addresses = [
         {
             id: 1,
             title: "Bweya",
@@ -32,9 +39,24 @@ export default function AddressCard() {
             house: "flat 4"
         }, 
       ]
+
+    const fetctAddresses = async () => {
+    await axios.get(`${Base_Url}/${user_id}`, {headers: headers})
+    .then((response) => {
+        setAddresses(response.data.data)
+    })
+    .catch(err => {
+        console.error(err)
+        console.log("error", err.message)
+    })
+    
+    }
+    React.useEffect(() => {
+    fetctAddresses()
+    }, [user_id])
   return (
     <>
-   {addreses.map((address, index) => (
+   {addresses.map((address, index) => (
  <TouchableOpacity
     key={address.id}
     onPress={() => {

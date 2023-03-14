@@ -2,7 +2,7 @@ import { View, Text, ScrollView } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import CategoryCard from './CategoryCard'
 import axios from 'axios'
-import Base_Url from '../constants/api'
+import { Base_Url } from '../constants/api'
 
 const CategoriesComponent = () => {
 const [Categories, setCategories] = React.useState([]);
@@ -29,12 +29,12 @@ useEffect(() => {
 }, [])
   return (
     <ScrollView 
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{
-        paddingHorizontal: 10,
-        paddingTop: 10
-      }}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingHorizontal: 10,
+          paddingTop: 10
+        }}
     >
       {Categories.map((Category) => (
          <CategoryCard 

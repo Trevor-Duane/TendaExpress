@@ -1,107 +1,76 @@
 import { View, Text, TextInput, Pressable, Image, TouchableOpacity, ScrollView } from 'react-native'
 import * as Animatable from 'react-native-animatable';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useContext, useLayoutEffect } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { CheckCircleIcon, EyeIcon, EyeSlashIcon } from 'react-native-heroicons/solid';
-import { AuthContext } from '../components/Context';
 
+import validator from '../utils/validator';
+import { showError, showSuccess } from '../utils/helperFunction';
+import actions from '../actions';
+import { ActivityIndicator } from 'react-native';
 
 const SignScreen = () => {
     const navigation =  useNavigation();
 
-    const [data, setData] = React.useState({
+    const [state, setState] = useState({
+        isLoading: false,
         email: '',
-        mobile: '',
+        phonenumber: '',
         username: '',
         address: '',
         password: '',
-        check_textInputChange1: false,
-        check_textInputChange2: false,
-        check_textInputChange3: false,
-        check_textInputChange4: false,
-        secureTextEntry: true,
+        password_confirmation: '',
+        isSecure: true
+    });
 
+    const { isLoading, email, phonenumber, username, address, password, password_confirmation, isSecure } = state
 
-    })
-    
-    const textInputChange1 = (val1) => {
-        if(val1.length !== 0){
-            setData({
-                ...data,
-                email: val1,
-                check_textInputChange1: true
-            });
-        }else {
-            setData({
-                ...data,
-                email: val1,
-                check_textInputChange1: false
-            })
+    const updateState = (data) => setState(() => ({...state, ...data}))
+
+    const isValidData = () => {
+        const error = validator({
+            email,
+            phonenumber,
+            username,
+            address,
+            password,
+            password_confirmation,
+        })
+        if(error) {
+            showError(error)
+            return false
         }
+        return true
     }
 
-    const textInputChange2 = (val2) => {
-        if(val2.length !== 0){
-            setData({
-                ...data,
-                mobile: val2,
-                check_textInputChange2: true
-            });
-        }else {
-            setData({
-                ...data,
-                mobile: val2,
-                check_textInputChange2: false
-            })
-        }
-    }
+    const onRegister = async() => {
+       const checkValid = isValidData()
+       if(checkValid){
+            updateState({isLoading: true})
+            try {
+                const res = await actions.register({
+                    email,
+                    phonenumber,
+                    username,
+                    address,
+                    password,
+                    password_confirmation,
+                })
+                console.log("res===> of signup", res)
+                showSuccess("Account Created Successfully")
+                navigation.navigate("Login")
+                updateState({isLoading: false})
+            } catch (error) {
+                console.log("error raise")
+                showError(error.message)
+                updateState({isLoading: false})
+                
+            }
 
-    const textInputChange3 = (val3) => {
-        if(val3.length !== 0){
-            setData({
-                ...data,
-                username: val3,
-                check_textInputChange3: true
-            });
-        }else {
-            setData({
-                ...data,
-                username: val3,
-                check_textInputChange3: false
-            })
-        }
-    }
+       }
 
-    const textInputChange4 = (val3) => {
-        if(val3.length !== 0){
-            setData({
-                ...data,
-                address: val3,
-                check_textInputChange4: true
-            });
-        }else {
-            setData({
-                ...data,
-                address: val3,
-                check_textInputChange4: false
-            })
-        }
-    }
-
-    const handlePasswordChange = (val5) => {
-        setData({
-            ...data,
-            password: val5
-        });
-    }
-
-    const updateSecureTextEntry = () => {
-        setData({
-            ...data,
-            secureTextEntry: !data.secureTextEntry
-        });
     }
 
     useLayoutEffect(() => {
@@ -121,21 +90,21 @@ const SignScreen = () => {
                 <View className="items-center">
                     <Text className="font-bold text-purple-600 pt-2 pb-4 text-2xl">Create Account</Text>
                 </View>
-                {/* <ScrollView> */}
+                <ScrollView>  
                     <View>
                         <View className="pb-6">
                         <View className="flex-row items-center relative">
                                 <TextInput
                                     placeholder="Email"
                                     autoCapitalize='none'
-                                    onChangeText={(val1) => textInputChange1(val1)}
+                                    onChangeText={(email) => updateState({ email })}
                                     className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
                                 />
-                                <Animatable.View animation="slideInRight" style={{position: 'absolute', right:3}}>
-                                    {data.check_textInputChange1 ? 
+                                {/* <Animatable.View anim                                                  ation="slideInRight" style={{position: 'absolute', right:3}}>
+                                    {checkValid ? 
                                         <CheckCircleIcon animation="slideInRight" size={24} color="#A020F0" />
                                     : null}
-                                </Animatable.View>
+                                </Animatable.View> */}
                         </View>
                         </View>
 
@@ -144,14 +113,14 @@ const SignScreen = () => {
                                 <TextInput
                                     placeholder="Phone Number"
                                     autoCapitalize='none'
-                                    onChangeText={(val2) => textInputChange2(val2)}
+                                    onChangeText={(phonenumber) => updateState({ phonenumber })}
                                     className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
                                 />
-                                <Animatable.View animation="slideInRight" style={{position: 'absolute', right:3}}>
-                                    {data.check_textInputChange2 ? 
+                                {/* <Animatable.View animation="slideInRight" style={{position: 'absolute', right:3}}>
+                                    {checkValid ? 
                                         <CheckCircleIcon animation="slideInRight" size={24} color="#A020F0" />
                                     : null}
-                                </Animatable.View>
+                                </Animatable.View> */}
                             </View>
                         </View>
 
@@ -161,14 +130,14 @@ const SignScreen = () => {
                                     <TextInput
                                         placeholder="Username"
                                         autoCapitalize='none'
-                                        onChangeText={(val3) => textInputChange3(val3)}
+                                        onChangeText={(username) => updateState({ username })}
                                         className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
                                     />
-                                    <Animatable.View animation="slideInRight" style={{position: 'absolute', right:5}}>
-                                        {data.check_textInputChange3 ? 
+                                    {/* <Animatable.View animation="slideInRight" style={{position: 'absolute', right:5}}>
+                                        {checkValid ? 
                                             <CheckCircleIcon animation="slideInRight" size={24} color="#A020F0" />
                                         : null}
-                                    </Animatable.View>
+                                    </Animatable.View> */}
                                 </View>
                             </View>
                         </View>
@@ -178,14 +147,14 @@ const SignScreen = () => {
                             <TextInput
                                     placeholder="Your Address"
                                     autoCapitalize='none'
-                                    onChangeText={(val4) => textInputChange4(val4)}
+                                    onChangeText={(address) => updateState({ address })}
                                     className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
                                 />
-                                <Animatable.View animation="slideInRight" style={{position: 'absolute', right:3}}>
-                                    {data.check_textInputChange4 ? 
+                                {/* <Animatable.View animation="slideInRight" style={{position: 'absolute', right:3}}>
+                                    {checkValid ? 
                                         <CheckCircleIcon animation="slideInRight" size={24} color="#A020F0" />
                                     : null}
-                                </Animatable.View>
+                                </Animatable.View> */}
                         </View>
                         </View>
 
@@ -193,12 +162,12 @@ const SignScreen = () => {
                             <View className="flex-row items-center relative">
                                 <TextInput
                                     placeholder="Password"
-                                    onChangeText={(val) => handlePasswordChange(val)}
-                                    secureTextEntry={data.secureTextEntry ? true : false}
+                                    onChangeText={(password) => updateState({ password })}
+                                    secureTextEntry={isSecure}
                                     className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
                                 />
-                                <TouchableOpacity className="items-center absolute right-3" onPress={updateSecureTextEntry}>
-                                    {data.secureTextEntry ?
+                                <TouchableOpacity className="items-center absolute right-3" onPress={() => updateState({ isSecure: !isSecure  })}>
+                                    {isSecure ?
                                     <EyeSlashIcon size={24} color="grey" />
                                     :
                                     <EyeIcon size={24} color="grey" />
@@ -206,18 +175,41 @@ const SignScreen = () => {
                                 </TouchableOpacity>
                             </View>
                         </View>
+
+                        <View className="pb-6">
+                            <View className="flex-row items-center relative">
+                                <TextInput
+                                    placeholder="Confirm Password"
+                                    onChangeText={(password_confirmation) => updateState({ password_confirmation })}
+                                    secureTextEntry={isSecure}
+                                    className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
+                                />
+                                <TouchableOpacity className="items-center absolute right-3" onPress={() => updateState({ isSecure: !isSecure  })}>
+                                    {isSecure ?
+                                    <EyeSlashIcon size={24} color="grey" />
+                                    :
+                                    <EyeIcon size={24} color="grey" />
+                                    }
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+
                     </View>
-                {/* </ScrollView> */}
+                </ScrollView>
 
-                <View className="pb-4 w-96">
-                    <Pressable className="bg-purple-600 py-3 items-center justify-center border rounded-md border-solid border-white">
-                        <Text className="text-white font-bold text-lg">Register</Text>
+                <View className="mb-4 w-96">
+                    <Pressable onPress={onRegister} className="bg-purple-600 py-3 items-center justify-center border rounded-md border-solid border-white">
+                        {!isLoading ? <Text className="text-white font-bold text-lg">Register</Text> 
+
+                            : <ActivityIndicator size="small" color="white" />
+                        }
+
                     </Pressable>
-                </View>
 
-                <View className="items-center">
-                    <Text className="text-sm text-gray-400">or connect with</Text>
-                    <View className="flex-row items-center space-x-10 pt-2 pb-4">
+
+                    <View className="items-center py-1">
+                    {/* <Text className="text-sm text-gray-400">or connect with</Text> */}
+                    {/* <View className="flex-row items-center space-x-10 pt-2 pb-4">
                         <Pressable className="shadow-sm bg-red items-center justify-center border rounded-md border-solid border-white">
                             <Image className="h-8 w-8 bg-white" source={{uri: "https://cdn-icons-png.flaticon.com/512/5968/5968534.png"}}/>
                         </Pressable>
@@ -225,10 +217,13 @@ const SignScreen = () => {
                         <Pressable className="shadow-sm bg-red items-center justify-center border rounded-md border-solid border-white">
                             <Image className="h-8 w-8 bg-white" source={{uri: "https://cdn-icons-png.flaticon.com/512/3128/3128304.png"}}/>
                         </Pressable>
-                    </View>
+                    </View> */}
                     <Text className="text-sm">Already have have an account? <Text onPress={() => navigation.navigate('Login')}className="text-sm text-purple-600"> Login</Text></Text>
 
                 </View>
+                </View>
+
+                
             </Animatable.View>
         </View>
     </SafeAreaView>

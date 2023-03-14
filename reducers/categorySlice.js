@@ -3,9 +3,9 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   category: {
     id: null,
-    image: null,
-    name: null,
-    big_description: null
+    category_image: null,
+    category_name: null,
+    category_description: null
   },
 }
 

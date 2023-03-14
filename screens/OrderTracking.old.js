@@ -1,7 +1,6 @@
 import { View, Text, Pressable, TouchableOpacity, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import StepIndicator from 'react-native-step-indicator';
 import dotted from '../assets/images/dotted-barline.png'
 import React from 'react'
 import { ArrowLeftIcon, CheckCircleIcon, ClockIcon, MapIcon } from 'react-native-heroicons/solid';
@@ -42,32 +41,6 @@ export default function OrderTracking({ route, navigation }) {
         },
     ]
 
-    const labels = ["Order Confirmed","Order Prepared","Delivery in progress","Delivered","Feedback"];
-
-    const customStyles = {
-        stepIndicatorSize: 25,
-        currentStepIndicatorSize:30,
-        separatorStrokeWidth: 2,
-        currentStepStrokeWidth: 3,
-        stepStrokeCurrentColor: '#A020F0',
-        stepStrokeWidth: 3,
-        stepStrokeFinishedColor: '#A020F0',
-        stepStrokeUnFinishedColor: '#aaaaaa',
-        separatorFinishedColor: '#A020F0',
-        separatorUnFinishedColor: '#aaaaaa',
-        stepIndicatorFinishedColor: '#A020F0',
-        stepIndicatorUnFinishedColor: '#ffffff',
-        stepIndicatorCurrentColor: '#ffffff',
-        stepIndicatorLabelFontSize: 13,
-        currentStepIndicatorLabelFontSize: 13,
-        stepIndicatorLabelCurrentColor: '#A020F0',
-        stepIndicatorLabelFinishedColor: '#ffffff',
-        stepIndicatorLabelUnFinishedColor: '#aaaaaa',
-        labelColor: '#999999',
-        labelSize: 13,
-        currentStepLabelColor: '#A020F0'
-      }
-
     let {duration} = route.params;
 
     const [currentStep, setCurrentStep] = React.useState(0);
@@ -87,7 +60,7 @@ export default function OrderTracking({ route, navigation }) {
             </View>
         </View>
 
-        <View className="bg-purple-600 rounded-lg justify-between mx-1">
+        <View className="bg-purple-600 rounded-lg justify-between">
             <View className="flex-row justify-between items-center">
                 <View className="flex-row items-center px-2 py-1">
                     <View>
@@ -111,19 +84,41 @@ export default function OrderTracking({ route, navigation }) {
             <Text className="text-gray-500 text-xl font-extrabold">Delivering Status</Text>
         </View>
 
-        <View className="mt-1 py-1 border border-gray-100 bg-slate-200">
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <View className="mt-1 py-1 border border-gray-100 bg-gray-200">
                 <View className="flex-row items-center justify-between mb-5 px-2">
-                <View>
                     <Text>Track order</Text>
-                </View>
-                <View>
                     <Text>ID: 20033737</Text>
                 </View>
-            </View>
-        </View>
 
-        <ScrollView showsVerticalScrollIndicator={false} className="flex-row mx-1">
-                <StepIndicator customStyles={customStyles} currentPosition={currentStep} labels={labels} direction="vertical"/>
+                <View className="border border-t-2 border-gray-300">
+                {statuses.map((item, index) => {
+                    return(
+                        <View key={`StatusList-${item.id}`}>
+                            <View className="flex-row items-center">
+                                <CheckCircleIcon size={32}  style={{color: index <= currentStep ? "#A020f0" : "#808080"}}/>
+
+                                <View className="pl-2">
+                                    <Text className="text-base font-bold">{item.title}</Text>
+                                    <Text className="text-xs text-gray-500">{item.sub_title}</Text>
+                                </View>
+                            </View>
+                            {index < statuses.length - 1 && 
+                                <View className="h-12 w-[2px] ml-3 bg-purple-600 z-[-1]"></View>
+                            }
+                            {index >= currentStep &&
+                                <View className="h-12 w-[2px] ml-3 bg-gray-400"></View>
+                                // <Image
+                                //     source={dotted}
+                                //     className="w-[4px] h-[50px] ml-3"/>
+                            }
+                        </View>
+                    )
+                })}
+                </View>
+
+            </View>
+
         </ScrollView>
 
         <View className="absolute bottom-0 right-0">

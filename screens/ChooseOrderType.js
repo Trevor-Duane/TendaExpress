@@ -1,6 +1,7 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useEffect, useState} from 'react'
 import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from 'react-native-heroicons/solid';
 
@@ -36,15 +37,16 @@ const OrderTypes = [
   },
 ]
 
-// useEffect(() => {
-//   handleIsSelected(option, isSelected)
-// }, [])
+useEffect(() => {
+  const setType = async() => {
+    await AsyncStorage.setItem('OrderType', option);
+    let order_type = await AsyncStorage.getItem('OrderType')
+    console.log("OrderType", order_type)
 
-// function handleIsSelected(){
-//   if(option){
-//     setIsSelected(option)
-//   }
-// }
+  };
+  setType();
+  
+}, [isSelected])
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -130,6 +132,7 @@ const OrderTypes = [
                 </View>
 
       </TouchableOpacity>
+      
         ))}
         <View className="absolute bottom-1 items-center justify-center w-screen px-2">
           <TouchableOpacity onPress={() => {navigation.navigate('Addaddress')}} className="bg-purple-600 rounded w-full">

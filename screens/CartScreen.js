@@ -3,11 +3,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState, useEffect } from 'react'
 import { useRoute, useNavigation } from '@react-navigation/native'
 import Currency from 'react-currency-formatter';
-import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon, MapPinIcon, QuestionMarkCircleIcon, TrashIcon, XCircleIcon } from 'react-native-heroicons/solid';
+import { TrashIcon, XCircleIcon } from 'react-native-heroicons/solid';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCategory } from '../features/categorySlice';
-import { selectBasketItems, selectBasketTotal } from '../features/basketSlice';
-import { removeFromBasket } from '../features/basketSlice';
+import { selectCategory } from '../reducers/categorySlice';
+import { selectBasketItems, selectBasketTotal } from '../reducers/basketSlice';
+import { removeFromBasket } from '../reducers/basketSlice';
 import { Image } from 'react-native';
 
 const CartScreen = () => {
@@ -24,7 +24,7 @@ const CartScreen = () => {
       return results;
     }, {});
       setGroupItemsInBasket(groupedItems)
-      // console.log("grouped", groupedItems)
+      console.log("grouped", groupedItems)
 
   }, [items])
 
@@ -66,16 +66,16 @@ const CartScreen = () => {
               <Text className="text-[#51087E] text-base">{items.length} X</Text>
               <Image 
                 source={{
-                  uri: items[0]?.image
+                  uri: items[0]?.item_image
                 }}
 
                 className="h-14 w-14 rounded-full"
                 />
 
-                <Text className="flex-1">{items[0]?.name}</Text>
+                <Text className="flex-1">{items[0]?.item_name}</Text>
 
                 <Text className="text-[#51087E]">
-                  <Currency quantity={items[0]?.price} currency="UGX" pattern="##,### !"/>
+                  <Currency quantity={items[0]?.item_price} currency="UGX" pattern="##,### !"/>
                 </Text>
 
                 <TouchableOpacity onPress={() => dispatch(removeFromBasket({id: key}))}>
