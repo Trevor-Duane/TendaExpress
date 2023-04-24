@@ -36,7 +36,7 @@ const CartScreen = () => {
       <View className="flex-1 p-2 bg-gray-100">
         <View className="p-5 border-b border-[#D7A1F9] bg-white shadow-xs">
           <View>
-            <Text className="font-extrabold text-lg text-center">Basket</Text>
+            <Text className="font-extrabold text-lg text-center">My Basket</Text>
           </View>
 
           <TouchableOpacity onPress={navigation.goBack} className="top-3 right-3 absolute">
@@ -75,7 +75,7 @@ const CartScreen = () => {
                 <Text className="flex-1">{items[0]?.item_name}</Text>
 
                 <Text className="text-[#51087E]">
-                  <Currency quantity={items[0]?.item_price} currency="UGX" pattern="##,### !"/>
+                  <Currency quantity={Number(items[0]?.item_price)} currency="UGX" pattern="##,### !"/>
                 </Text>
 
                 <TouchableOpacity onPress={() => dispatch(removeFromBasket({id: key}))}>
@@ -89,21 +89,21 @@ const CartScreen = () => {
           <View className="flex-row justify-between">
             <Text className="text-gray-400">Subtotal</Text>
             <Text className="text-[#51087E]">
-              <Currency quantity={basketTotal} currency="UGX" pattern="##,### !"/>
+              <Currency quantity={Number(basketTotal)} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
 
           <View className="flex-row justify-between">
             <Text className="text-gray-400">Delivery fee</Text>
             <Text className="text-[#51087E]">
-              <Currency quantity={0.02*basketTotal} currency="UGX" pattern="##,### !"/>
+              <Currency quantity={Number(0.02*basketTotal)} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
 
           <View className="flex-row justify-between">
             <Text>Order Total</Text>
             <Text className="text-[#51087E] font-bold">
-              <Currency quantity={basketTotal+(0.02*basketTotal)} currency="UGX" pattern="##,### !"/>
+              <Currency quantity={Number(basketTotal+(0.02*basketTotal))} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
 

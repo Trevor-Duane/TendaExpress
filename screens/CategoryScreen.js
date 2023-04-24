@@ -11,6 +11,8 @@ import { ArrowLeftIcon } from 'react-native-heroicons/solid';
 import BasketIcon from '../components/BasketIcon';
 import { setCategory } from '../reducers/categorySlice';
 import { useDispatch } from 'react-redux';
+import { StatusBar } from 'expo-status-bar';
+
 
 const CategoryScreen = () => {
 
@@ -65,9 +67,10 @@ const CategoryScreen = () => {
     }, [id, selectedSubCategory])
   return (
    <SafeAreaView>
+    <StatusBar className="bg-white" barStyle="light-content"/>
     <BasketIcon/>
     <ScrollView>
-    <View className="relative">
+    <View className="relative mt-4">
         <Image source={{
             uri: category_image
         }}

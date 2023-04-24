@@ -47,7 +47,7 @@ const GetStarted = () => {
                     </Pressable>
                 </View>
                 
-                <View>
+                <View className="hidden">
                     <Pressable onPress={() => navigation.navigate('Pickgo')} className="bg-purple-600 py-3 items-center justify-center border rounded-md border-solid border-white">
                         <Text className="text-white font-bold text-xl">Pick & Go</Text>
                     </Pressable>

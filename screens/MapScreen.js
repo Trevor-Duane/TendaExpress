@@ -20,6 +20,7 @@ export default function MapScreen({ route, navigation }) {
   const [region, setRegion] = React.useState(null);
 
   const [duration, setDuration] = React.useState(0);
+  const [distance, setDistance] = React.useState(0);
   const [isReady, setIsReady] = React.useState(false);
   const [angle, setAngle] = React.useState(0);
 
@@ -96,6 +97,7 @@ export default function MapScreen({ route, navigation }) {
           optimizeWaypoints={true}
           onReady={result => {
             setDuration(result.duration)
+            setDistance(result.distance)
 
             if(!isReady){
               //fit route into map

@@ -39,6 +39,7 @@ const DrawerContent = (props) => {
               </View>
 
               <View style={{flexDirection: 'column', marginLeft: 15}}>
+              
                 <View>
                   <Title style={styles.title}>{userData.user.username}</Title>
                 </View>
@@ -60,43 +61,43 @@ const DrawerContent = (props) => {
                   size={size}
                   />
               )}
-              label="My Profile"
+              label="My Account"
               onPress={() => {}}
             />
 
             <DrawerItem
               icon={({color, size}) => (
                 <MaterialCommunityIcons 
-                  name="database" 
+                  name="history" 
                   color={color}
                   size={size}
                   />
               )}
-              label="My Orders"
+              label="Order History"
               onPress={() => {}}
             />
 
             <DrawerItem
               icon={({color, size}) => (
                 <MaterialCommunityIcons 
-                  name="map-marker" 
+                  name="food" 
                   color={color}
                   size={size}
                   />
               )}
-              label="Delivery Address"
+              label="Chef's Specials"
               onPress={() => {}}
             />
 
             <DrawerItem
               icon={({color, size}) => (
                 <MaterialCommunityIcons 
-                  name="credit-card-outline" 
+                  name="heart" 
                   color={color}
                   size={size}
                   />
               )}
-              label="Payment Methods"
+              label="Favourites"
               onPress={() => {}}
             />
 

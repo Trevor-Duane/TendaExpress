@@ -13,7 +13,7 @@ const MainTabScreen = () => {
     <Tab.Navigator
       initialRouteName="Feed"
       activeColor="#A020F0"
-      barStyle={{ backgroundColor: 'white' }}
+      barStyle={{ backgroundColor: 'white', shadowColor:"white", borderTopWidth: 1, borderTopColor: "#F5f5f5" }}
     >
       <Tab.Screen
         name="Homepage"
@@ -29,7 +29,7 @@ const MainTabScreen = () => {
         name="Cart"
         component={CartScreen}
         options={{
-          tabBarLabel: 'Basket',
+          tabBarLabel: 'My Basket',
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="cart" color={color} size={26} />
           ),

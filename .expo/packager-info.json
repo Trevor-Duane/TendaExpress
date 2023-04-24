@@ -2,8 +2,8 @@
   "expoServerPort": 19000,
   "packagerPort": 19000,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
-  "webpackServerPort": 19006
+  "expoServerNgrokUrl": "https://jd8r_0g.tduane.tendaexpress.exp.direct",
+  "packagerNgrokUrl": "https://jd8r_0g.tduane.tendaexpress.exp.direct",
+  "ngrokPid": 113508,
+  "webpackServerPort": null
 }

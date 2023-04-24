@@ -13,21 +13,8 @@ import { StatusBar } from 'expo-status-bar';
 import { showError, showSuccess } from '../utils/helperFunction';
 import actions from '../actions';
 
-// let customFonts = {
-//     'Lilita_One': require('../assets/fonts/LilitaOne-Regular.ttf'),
-
-// }
 
 const LoginScreen = () => {
-
-    // const [fontsLoaded, setFontsLoaded] = React.useState(false);
-    // React.useEffect(() => {
-    //     const loadFont = async() => {
-    //         await Font.loadAsync(customFonts);
-    //         setFontsLoaded(true);
-    //     }
-    //     loadFont()
-    // }, [])
 
     const navigation =  useNavigation();
 

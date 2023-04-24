@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, TouchableOpacity, Pressable} from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Pressable, ActivityIndicator} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native'
@@ -12,6 +12,7 @@ import { ArrowLeftIcon } from 'react-native-heroicons/solid';
 import { MapPinIcon } from 'react-native-heroicons/outline';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { showError, showSuccess } from '../utils/helperFunction';
 import { Base_Url } from '../constants/api';
 import headers from '../constants/headers'
 
@@ -25,58 +26,56 @@ const AddressScreen = () => {
   // let Order_type = AsyncStorage.getItem('OrderType');
   // console.log("address screen", Order_type)
   
-  // const [user_id, setUser_id] = useState(userData.user.id);
-  // const [address, setAddress] = useState("");
-  // const [house, setHouse] = useState("");
-  // const [landmark, setLandmark] = useState("");
-  // const [tag, setTag] = useState();
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [latitude, setLatitude] = useState("");
-  // const [longitude, setLongitude] = useState("");
+  const [user_id, setUser_id] = useState(JSON.stringify(userData.user.id));
+  const [address_address, setAddress] = useState("");
+  const [house_no, setHouse] = useState("");
+  const [landmark, setLandmark] = useState("");
+  const [address_tag, setTag] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [address_latitude, setLatitude] = useState("");
+  const [address_longitude, setLongitude] = useState("");
 
   const [draggableMarkerCoord, setDraggableMarkerCoord] = React.useState({
     latitude: 0.18128598829516188,
     longitude: 32.54844747561724
   });
 
-  const [state, setState] = useState({
-    isLoading: false,
-    user_id: userData.user.id,
-    address: '',
-    house: '',
-    landmark: '',
-    tag: '',
-    latitude: '',
-    longitude: ''
-
-  });
-
-  const {isLoading, user_id, address, house, landmark, tag, latitude, longitude} = state
-
-  const updateState = (data) => setState(() => ({...state, ...data}))
-
  const saveAddress = async() => {
-  updateState({isLoading: true})
-  try{
-    const response = await axios({
-      method: "post",
-      url: `${Base_Url}/address`,
-      data: {
-        user_id,
-        address,
-        house,
-        landmark,
-        tag,
-        latitude,
-        longitude
-      },
-      headers: headers
-    });
+  setIsLoading(true)
+  await axios.post(`${Base_Url}/address`, {
+    user_id: user_id,
+    address_address: address_address,
+    house_no: house_no,
+    landmark: landmark,
+    address_tag: address_tag,
+    address_latitude: JSON.stringify(address_latitude),
+    address_longitude: JSON.stringify(address_longitude)
+  }, {headers: headers})
+  .then(response => {
     console.log(response)
-  } catch(error) {
-    console.log(error)
-  }
+    showSuccess("Address saved succesfully")
+    navigation.navigate("Addaddress")
+    setIsLoading(false)
+    setAddress("")
+    setHouse("")
+    setTag("")
+    setLandmark("")
+    setLatitude("")
+    setLongitude("")
 
+  }).catch(error => {
+    if(error.response){
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if(error.request){
+      console.log(error.request);
+    } else {
+      console.log(error.message)
+    }
+    console.log(error.config)
+
+  })
 
  }
   // console.log(draggableMarkerCoord)
@@ -99,7 +98,6 @@ const AddressScreen = () => {
         <View style={styles.container}>
           <MapView style={styles.map}
               ref={mapViewRef}
-              // onPoiClick={setDraggableMarkerCoord(mapViewRef.current.coordinate)}
               initialRegion={{
                   latitude: 0.1842161760365318,
                   longitude: 32.53842004388755,
@@ -114,10 +112,8 @@ const AddressScreen = () => {
                   coordinate={draggableMarkerCoord}
                   onDragEnd={(e) => {
                     setDraggableMarkerCoord(e.nativeEvent.coordinate)
-                    updateState({latitude: e.nativeEvent.coordinate.latitude})
-                    updateState({longitude: e.nativeEvent.coordinate.longitude})
-                    // setLatitude(e.nativeEvent.coordinate.latitude)
-                    // setLongitude(e.nativeEvent.coordinate.longitude)
+                    setLatitude(e.nativeEvent.coordinate.latitude)
+                    setLongitude(e.nativeEvent.coordinate.longitude)
                   }    
                 }
                 />
@@ -141,14 +137,16 @@ const AddressScreen = () => {
                     placeholder="Address e.g Bwebajja"
                     className="text-purple-800 text-xs w-96 h-12 px-2 mb-4 bg-gray-100 rounded-md"
                     autoCapitalize='none'
-                    onChangeText={(address) => updateState({ address })}
+                    value={address_address}
+                    onChangeText={address_address => setAddress(address_address)}
                 />
 
               <TextInput
                   placeholder="House/ Flat Number e.g flat 1"
                   className="text-purple-800 text-xs w-96 h-12 px-2 mb-4 bg-gray-100 rounded-md"
                   autoCapitalize='none'
-                  onChangeText={(house) => updateState({ house })}
+                  value={house_no}
+                  onChangeText={house_no => setHouse(house_no)}
 
               />
 
@@ -156,15 +154,17 @@ const AddressScreen = () => {
                   placeholder="Available Landmarks e.g church/school"
                   className="text-purple-800 text-xs w-96 h-12 px-2 mb-4 bg-gray-100 rounded-md"
                   autoCapitalize='none'
-                  onChangeText={(landmark) => updateState({ landmark })}
+                  value={landmark}
+                  onChangeText={landmark => setLandmark(landmark)}
 
               />
 
           <View className="bg-gray-100 rounded-md h-12">
             <Picker
               style={{height: 25, width: 380}}
-              selectedValue={tag}
-              onValueChange={(itemValue, itemIndex) => updateState(itemValue)}
+              selectedValue={address_tag}
+              value={address_tag}
+              onValueChange={(itemValue, itemIndex) => setTag(itemValue)}
               >
               <Picker.Item style={{color: "#989898", fontSize: 12}} label="Address Tag" value="null"/>
               <Picker.Item style={{color: "#A020F0", fontSize: 12}}  label="Home" value="home"/>
@@ -178,12 +178,13 @@ const AddressScreen = () => {
 
          
           <View className="relative bottom-0 items-center justify-center w-screen px-3">
-              <TouchableOpacity onPress={() => {
-                navigation.navigate('Addaddress')
-                saveAddress
-                }} className="bg-purple-600 rounded w-full">
-                  <Text className="text-white text-base font-bold text-center px-2 py-3">Save Address</Text>
-              </TouchableOpacity>
+            <Pressable onPress={saveAddress} className="bg-purple-600 py-3 items-center justify-center border rounded-md border-solid border-white w-full">
+                {!isLoading ? <Text className="text-white font-bold text-lg">Register</Text> 
+
+                    : <ActivityIndicator size="small" color="white" />
+                }
+
+            </Pressable>
           </View>
         </View>
       </SafeAreaView>

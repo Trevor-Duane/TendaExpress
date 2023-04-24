@@ -12,6 +12,7 @@ const CategoryCard = ({
 
   return (
     <TouchableOpacity
+      className="w-[48%] m-1 items-center justify-center"
       onPress={() => {
         navigation.navigate('Catscreen', {
           id,
@@ -19,16 +20,17 @@ const CategoryCard = ({
           category_name,
           category_description
         })}}
-      className="relative mr-2" >
-       <View className="filter backdrop-filter">
-         <Image 
-            source={{
-             uri: category_image,
-         }}
-         className="h-20 w-20 rounded"
-        />
-       </View>
-      <Text className="absolute bottom-1 left-1 text-white font-extrabold">{category_name}</Text>
+        >
+      <View className="shadow">
+        <Image
+          source={{
+            uri: category_image }}
+          className="h-48 w-48 rounded"/>
+      </View>
+      
+      <View>
+        <Text className="text-gray-700 font-extrabold text-center text-lg">{category_name}</Text>
+      </View>
     </TouchableOpacity>
   )
 }

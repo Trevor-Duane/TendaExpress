@@ -65,7 +65,7 @@ export default function AddAddressScreen() {
         </View>
 
         <View className="items-center justify-center w-screen px-2 mb-2">
-          <TouchableOpacity onPress={() => {navigation.navigate('Payments')}} className="bg-purple-600 rounded w-full">
+          <TouchableOpacity onPress={() => {navigation.navigate('Baskets')}} className="bg-purple-600 rounded w-full">
             <Text className="text-white text-xl font-bold text-center px-2 py-3">Proceed to payment</Text>
           </TouchableOpacity>
         </View>

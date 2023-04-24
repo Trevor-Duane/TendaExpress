@@ -12,6 +12,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import SingleScreen from '../screens/SingleScreen';
 import CategoryScreen from '../screens/CategoryScreen';
 import BasketScreen from '../screens/BasketScreen';
+import Basket2Screen from '../screens/Basket2Screen';
 import AddAddressScreen from '../screens/AddAddressScreen';
 import AcceptOrder from '../screens/AcceptOrder';
 import PaymentsScreen from '../screens/PaymentsScreen';
@@ -38,6 +39,7 @@ export default function DrawerStackScreen() {
 
                 <Drawer.Group screenOptions={{presentation: "model"}}>
                   <Drawer.Screen name="Baskets" component={BasketScreen} />
+                  <Drawer.Screen name="Basket2" component={Basket2Screen} />
                   <Drawer.Screen name="Chooseordertype" component={ChooseOrderType}/>
                   <Drawer.Screen name="Addaddress" component={AddAddressScreen}/>
                   <Drawer.Screen name="Singlestory" component={SingleStoryScreen}/>

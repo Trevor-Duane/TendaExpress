@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
 import React, {useEffect, useState} from 'react'
 import CategoryCard from './CategoryCard'
 import axios from 'axios'
@@ -28,25 +28,24 @@ useEffect(() => {
   fetctCategories()
 }, [])
   return (
+    
     <ScrollView 
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingHorizontal: 10,
-          paddingTop: 10
-        }}
-    >
+    showsHorizontalScrollIndicator={false}
+    contentContainerStyle={{
+    }}>
+
+    <View className="flex-row flex-wrap mb-4 mt-2">
       {Categories.map((Category) => (
-         <CategoryCard 
-         key={Category.id}
-         id={Category.id}
-         category_image={Category.category_image} 
-         category_name={Category.category_name}
-         category_description={Category.category_description}
-       />
+           <CategoryCard 
+           key={Category.id}
+           id={Category.id}
+           category_image={Category.category_image} 
+           category_name={Category.category_name}
+           category_description={Category.category_description}
+         />
       ))}
-    </ScrollView>
-      
+    </View>
+</ScrollView>  
   ) 
 }
 

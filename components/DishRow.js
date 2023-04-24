@@ -35,7 +35,7 @@ const DishRow = ({
             <Text className="text-lg">{item_name}</Text>
             <Text className="text-gray-500">{item_description}</Text>
             <Text className="text-purple-800 mt-1 font-bold">
-              <Currency quantity={item_price} currency="UGX" pattern="##,### !"/>
+              <Currency quantity={Number(item_price)} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
           <View>

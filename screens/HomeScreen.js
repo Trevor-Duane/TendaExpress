@@ -22,54 +22,33 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-        <StatusBar backgroundColor='#ffffff' barStyle="light-content"/>
-         <View className="flex-1">
-               {/* Header */}
-               <View className="flex-row pb-3 items-center mx-2 justify-between">
+        <StatusBar backgroundColor='#A020f0' barStyle="light-content"/>
+        {/* Header */}
+
+         <View className="bg-[#A020F0]">
+               <View className="flex-row pb-3 items-center mx-2 mt-5 justify-between">
                     <View>
                         <Bars3Icon 
                             onPress={() => navigation.openDrawer()} title='left drawer'
-                            size={36} 
-                            color="#000"
-                            className="p-4" 
+                            size={32} 
+                            color="#fff"
                         />
                     </View>
-                    <View>
-                        <UserCircleIcon
-                            onPress={() => {}}
-                            title='right drawer'
-                            size={36} color="#000"
-                            className="p-4"/>
+
+                    <View className="flex-1">
+                        <Text className="font-extrabold text-xl text-center text-white">Menu</Text>
                     </View>
                 </View>
-            {/* search */}
-            <View className="mx-2 pb-2">
-                <View className="flex-row items-center space-x-2 bg-white shadow rounded-lg p-2">
-                    <MagnifyingGlassIcon size={18} color="#a020f0" className="font-bold" />
-                    <TextInput 
-                        placeholder='Search for your fav food...'
-                        keyboardType='default'
-                    />
-                </View>
-            </View>
-            
-            {/* Body */}
-            <ScrollView nestedScrollEnabled={true}>
-
-                {/* Categories */}
-                <CategoriesComponent/>
-
-                {/* Offers Today */}
-                <View>
-                    <ChefSpecial id="1" title="Chef's Special" description="All the special dishes in one place"/>
-                </View>
-
-                {/* All items */}      
-                <ScrollView horizontal={true}>
-                    <Menu id="2" title="Our Menu" description="Everything all at once"/>
-                </ScrollView>
-            </ScrollView>
          </View>
+
+         {/* Body */}
+         <ScrollView nestedScrollEnabled={true}>
+
+        {/* Categories */}
+            <CategoriesComponent/>
+
+       
+        </ScrollView>
             
 
     </SafeAreaView>

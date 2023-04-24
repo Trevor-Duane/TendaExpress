@@ -9,14 +9,12 @@ import { selectCategory } from '../reducers/categorySlice';
 import { selectBasketItems, selectBasketTotal } from '../reducers/basketSlice';
 import { removeFromBasket } from '../reducers/basketSlice';
 import { Image } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const BasketScreen = () => {
+const Basket2Screen = () => {
   const navigation =  useNavigation();
   const category = useSelector(selectCategory);
   const items = useSelector(selectBasketItems);
   const basketTotal = useSelector(selectBasketTotal);
-  const [delivery_distance, setDelivery_distance] = useState(0);
   const [groupItemsInBasket, setGroupItemsInBasket] = useState([]);
   const dispatch = useDispatch();
 
@@ -32,20 +30,6 @@ const BasketScreen = () => {
 
   // console.log("groupedbasket", groupItemsInBasket)
   // console.log("items", items)
-  
-  useEffect(() => {
-    const fetchDistance = async () => {
-      const pdistance = parseInt(await AsyncStorage.getItem("pdistance"))
-      console.log("first pdisatnce", pdistance)
-      console.log(typeof(pdistance))
-      if(pdistance && pdistance >= 0){
-        setDelivery_distance(pdistance)
-
-      }
-      console.log("pdistance here", delivery_distance)
-    }
-    fetchDistance()
-  })
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -91,7 +75,7 @@ const BasketScreen = () => {
                 <Text className="flex-1">{items[0]?.item_name}</Text>
 
                 <Text className="text-[#51087E]">
-                  <Currency quantity={Number(items[0]?.item_price)} currency="UGX" pattern="##,### !"/>
+                  <Currency quantity={items[0]?.item_price} currency="UGX" pattern="##,### !"/>
                 </Text>
 
                 <TouchableOpacity onPress={() => dispatch(removeFromBasket({id: key}))}>
@@ -113,14 +97,14 @@ const BasketScreen = () => {
             <Text className="text-gray-400">Delivery fee</Text>
             {/* <Text className="text-[#51087E] font-bold"> */}
             <Text className="text-gray-400 font-bold">
-              <Currency quantity={delivery_distance} currency="UGX" pattern="##,### !"/>
+              <Currency quantity={0.00} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
 
           <View className="flex-row justify-between">
             <Text>Order Total</Text>
             <Text className="text-[#51087E] font-bold">
-              <Currency quantity={Number(basketTotal+(0.02*basketTotal))} currency="UGX" pattern="##,### !"/>
+              <Currency quantity={basketTotal+(0.02*basketTotal)} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
 
@@ -133,4 +117,4 @@ const BasketScreen = () => {
   )
 }
 
-export default BasketScreen
+export default Basket2Screen

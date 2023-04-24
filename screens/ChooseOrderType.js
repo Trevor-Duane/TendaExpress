@@ -37,11 +37,30 @@ const OrderTypes = [
   },
 ]
 
+let RestaurantLocation = [ 
+  {
+    "address_latitude": 0.18441485939905478,
+    "address_longitude": 32.538370291740904
+  }
+]
+
+let baseOrderFee = 0
+
 useEffect(() => {
   const setType = async() => {
     await AsyncStorage.setItem('OrderType', option);
     let order_type = await AsyncStorage.getItem('OrderType')
+    if(isSelected == 1 && isSelected == 2){
+        await AsyncStorage.removeItem("pdistance")
+        await AsyncStorage.setItem('pdistance', JSON.stringify(baseOrderFee))
+
+
+    }
     console.log("OrderType", order_type)
+    console.log(isSelected)
+    console.log("theisslected", typeof(isSelected))
+    console.log(option)
+    console.log("theOption", typeof(option))
 
   };
   setType();
@@ -135,7 +154,21 @@ useEffect(() => {
       
         ))}
         <View className="absolute bottom-1 items-center justify-center w-screen px-2">
-          <TouchableOpacity onPress={() => {navigation.navigate('Addaddress')}} className="bg-purple-600 rounded w-full">
+          <TouchableOpacity 
+            // onPress={() => {navigation.navigate('Addaddress')}}
+            onPress={() => {
+              if(option === "Delivery"){
+                navigation.navigate("Addaddress")
+              } else {
+                AsyncStorage.removeItem('pdistance')
+                AsyncStorage.setItem('pdistance', JSON.stringify(baseOrderFee))
+                AsyncStorage.removeItem('saddress')
+                AsyncStorage.setItem('saddress', JSON.stringify(RestaurantLocation))
+                navigation.navigate("Baskets")
+              }
+              return
+            }}
+            className="bg-purple-600 rounded w-full">
             <Text className="text-white text-base font-bold text-center px-2 py-3">Place Order</Text>
           </TouchableOpacity>
         </View>
