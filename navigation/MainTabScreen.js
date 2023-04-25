@@ -2,16 +2,17 @@ import { StyleSheet, Text, View } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from '../screens/HomeScreen';
-import CartScreen from '../screens/CartScreen';
-import ProfileScreen from '../screens/ProfileScreen';
 import Discover from '../screens/DiscoverScreen';
+import OrderTracking from '../screens/OrderTracking';
+import RunningOrders from '../screens/RunningOrders';
+import BasketScreen from '../screens/BasketScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Homepage"
       activeColor="#A020F0"
       barStyle={{ backgroundColor: 'white', shadowColor:"white", borderTopWidth: 1, borderTopColor: "#F5f5f5" }}
     >
@@ -26,8 +27,8 @@ const MainTabScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Cart"
-        component={CartScreen}
+        name="Baskets"
+        component={BasketScreen}
         options={{
           tabBarLabel: 'My Basket',
           tabBarIcon: ({ color }) => (
@@ -46,12 +47,12 @@ const MainTabScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={ProfileScreen}
+        name="Track"
+        component={RunningOrders}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Track Order',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <MaterialCommunityIcons name="radar" color={color} size={26} />
           ),
         }}
       />

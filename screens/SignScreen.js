@@ -82,149 +82,123 @@ const SignScreen = () => {
   return (
     <SafeAreaView className="flex-1 bg-purple-600">
         <StatusBar className="bg-purple-600" barStyle="light-content"/>
+        
         <View className="flex-1 bg-purple-600">
+
             <View className="items-center pt-6 pb-4">
                 <Text className="font-bold text-white text-2xl">TendaExpress</Text>
             </View>
-            <Animatable.View animation="fadeInUpBig" className="flex-1 bg-white rounded-t-3xl px-4">
+            
+            <Animatable.View animation="fadeInUpBig" className="flex-1 bg-white rounded-t-3xl">
                 <View className="items-center">
                     <Text className="font-bold text-purple-600 pt-2 pb-4 text-2xl">Create Account</Text>
                 </View>
+
                 <ScrollView>  
-                    <View>
-                        <View className="pb-6">
-                        <View className="flex-row items-center relative">
-                                <TextInput
-                                    placeholder="Email"
-                                    autoCapitalize='none'
-                                    onChangeText={(email) => updateState({ email })}
-                                    className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
-                                />
-                                {/* <Animatable.View anim                                                  ation="slideInRight" style={{position: 'absolute', right:3}}>
-                                    {checkValid ? 
-                                        <CheckCircleIcon animation="slideInRight" size={24} color="#A020F0" />
-                                    : null}
-                                </Animatable.View> */}
-                        </View>
-                        </View>
-
-                        <View className="pb-6">
-                            <View className="flex-row items-center relative">
-                                <TextInput
-                                    placeholder="Phone Number"
-                                    autoCapitalize='none'
-                                    onChangeText={(phonenumber) => updateState({ phonenumber })}
-                                    className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
-                                />
-                                {/* <Animatable.View animation="slideInRight" style={{position: 'absolute', right:3}}>
-                                    {checkValid ? 
-                                        <CheckCircleIcon animation="slideInRight" size={24} color="#A020F0" />
-                                    : null}
-                                </Animatable.View> */}
-                            </View>
-                        </View>
-
-                        <View className="pb-6">
-                            <View className="flex-row items-center relative">
-                                <View className="flex-row items-center relative">
-                                    <TextInput
-                                        placeholder="Username"
-                                        autoCapitalize='none'
-                                        onChangeText={(username) => updateState({ username })}
-                                        className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
-                                    />
-                                    {/* <Animatable.View animation="slideInRight" style={{position: 'absolute', right:5}}>
-                                        {checkValid ? 
-                                            <CheckCircleIcon animation="slideInRight" size={24} color="#A020F0" />
-                                        : null}
-                                    </Animatable.View> */}
-                                </View>
-                            </View>
-                        </View>
-
-                        <View className="pb-6">
-                        <View className="flex-row items-center relative">
-                            <TextInput
-                                    placeholder="Your Address"
-                                    autoCapitalize='none'
-                                    onChangeText={(address) => updateState({ address })}
-                                    className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
-                                />
-                                {/* <Animatable.View animation="slideInRight" style={{position: 'absolute', right:3}}>
-                                    {checkValid ? 
-                                        <CheckCircleIcon animation="slideInRight" size={24} color="#A020F0" />
-                                    : null}
-                                </Animatable.View> */}
-                        </View>
-                        </View>
-
-                        <View className="pb-6">
-                            <View className="flex-row items-center relative">
-                                <TextInput
-                                    placeholder="Password"
-                                    onChangeText={(password) => updateState({ password })}
-                                    secureTextEntry={isSecure}
-                                    className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
-                                />
-                                <TouchableOpacity className="items-center absolute right-3" onPress={() => updateState({ isSecure: !isSecure  })}>
-                                    {isSecure ?
-                                    <EyeSlashIcon size={24} color="grey" />
-                                    :
-                                    <EyeIcon size={24} color="grey" />
-                                    }
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-
-                        <View className="pb-6">
-                            <View className="flex-row items-center relative">
-                                <TextInput
-                                    placeholder="Confirm Password"
-                                    onChangeText={(password_confirmation) => updateState({ password_confirmation })}
-                                    secureTextEntry={isSecure}
-                                    className="text-purple-800 text-base w-96 h-12 px-2 bg-gray-200 rounded-md"
-                                />
-                                <TouchableOpacity className="items-center absolute right-3" onPress={() => updateState({ isSecure: !isSecure  })}>
-                                    {isSecure ?
-                                    <EyeSlashIcon size={24} color="grey" />
-                                    :
-                                    <EyeIcon size={24} color="grey" />
-                                    }
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-
+                        
+                    <View className="px-2 py-3">
+                        <TextInput
+                            placeholder="Email"
+                            autoCapitalize='none'
+                            onChangeText={(email) => updateState({ email })}
+                            className="text-purple-800 text-base h-12 px-2 bg-gray-200 rounded-md"
+                        />
+                        
                     </View>
+
+                    <View className="px-2 pb-3">
+                        <TextInput
+                            placeholder="Phone Number"
+                            autoCapitalize='none'
+                            onChangeText={(phonenumber) => updateState({ phonenumber })}
+                            className="text-purple-800 text-base h-12 px-2 bg-gray-200 rounded-md"
+                        />
+                        
+                    </View>
+
+                    <View className="px-2 pb-3">
+                        <TextInput
+                            placeholder="Username"
+                            autoCapitalize='none'
+                            onChangeText={(username) => updateState({ username })}
+                            className="text-purple-800 text-base h-12 px-2 bg-gray-200 rounded-md"
+                        />
+                    </View>
+
+                    <View className="px-2 pb-3">
+                        <TextInput
+                                placeholder="Your Address"
+                                autoCapitalize='none'
+                                onChangeText={(address) => updateState({ address })}
+                                className="text-purple-800 text-base h-12 px-2 bg-gray-200 rounded-md"
+                            />                        
+                    </View>
+
+                    <View className="flex-row items-center relative px-2 pb-3">
+                            <TextInput
+                                placeholder="Password"
+                                onChangeText={(password) => updateState({ password })}
+                                secureTextEntry={isSecure}
+                                className="text-purple-800 text-base h-12 px-2 bg-gray-200 rounded-md w-full"
+                            />
+                            <TouchableOpacity className="items-center absolute right-3" onPress={() => updateState({ isSecure: !isSecure  })}>
+                                {isSecure ?
+                                <EyeSlashIcon size={24} color="grey" />
+                                :
+                                <EyeIcon size={24} color="grey" />
+                                }
+                            </TouchableOpacity>
+                        </View>
+
+                        <View className="flex-row items-center relative px-2">
+                            <TextInput
+                                placeholder="Confirm Password"
+                                onChangeText={(password_confirmation) => updateState({ password_confirmation })}
+                                secureTextEntry={isSecure}
+                                className="text-purple-800 text-base w-full h-12 px-2 bg-gray-200 rounded-md"
+                            />
+                            <TouchableOpacity className="items-center absolute right-3" onPress={() => updateState({ isSecure: !isSecure  })}>
+                                {isSecure ?
+                                <EyeSlashIcon size={24} color="grey" />
+                                :
+                                <EyeIcon size={24} color="grey" />
+                                }
+                            </TouchableOpacity>
+                        </View>
+
+                        <View className=" pb-4 px-2 pt-8 bg-white">
+                            <Pressable onPress={onRegister} className="bg-purple-600 py-3 items-center justify-center border rounded-md border-solid border-white">
+                                {!isLoading ? <Text className="text-white font-bold text-lg">Register</Text> 
+
+                                    : <ActivityIndicator size="small" color="white" />
+                                }
+
+                            </Pressable>
+
+                            <View className="items-center py-4">
+                                <Pressable onPress={() => navigation.navigate('Login')}>
+                                    <Text className="text-sm">Already have an account? <Text className="text-md font-bold text-purple-600 p-2"> Login</Text></Text>
+                                </Pressable>
+                            </View>
+                        </View>
                 </ScrollView>
-
-                <View className="mb-4 w-96">
-                    <Pressable onPress={onRegister} className="bg-purple-600 py-3 items-center justify-center border rounded-md border-solid border-white">
-                        {!isLoading ? <Text className="text-white font-bold text-lg">Register</Text> 
-
-                            : <ActivityIndicator size="small" color="white" />
-                        }
-
-                    </Pressable>
-
-
-                    <View className="items-center py-1">
-                    {/* <Text className="text-sm text-gray-400">or connect with</Text> */}
-                    {/* <View className="flex-row items-center space-x-10 pt-2 pb-4">
-                        <Pressable className="shadow-sm bg-red items-center justify-center border rounded-md border-solid border-white">
-                            <Image className="h-8 w-8 bg-white" source={{uri: "https://cdn-icons-png.flaticon.com/512/5968/5968534.png"}}/>
-                        </Pressable>
-
-                        <Pressable className="shadow-sm bg-red items-center justify-center border rounded-md border-solid border-white">
-                            <Image className="h-8 w-8 bg-white" source={{uri: "https://cdn-icons-png.flaticon.com/512/3128/3128304.png"}}/>
-                        </Pressable>
-                    </View> */}
-                    <Text className="text-sm">Already have have an account? <Text onPress={() => navigation.navigate('Login')}className="text-sm text-purple-600"> Login</Text></Text>
-
-                </View>
-                </View>
-
-                
             </Animatable.View>
+
+            {/* <View className=" pb-4 px-3 bg-white">
+                <Pressable onPress={onRegister} className="bg-purple-600 py-3 items-center justify-center border rounded-md border-solid border-white">
+                    {!isLoading ? <Text className="text-white font-bold text-lg">Register</Text> 
+
+                        : <ActivityIndicator size="small" color="white" />
+                    }
+
+                </Pressable>
+
+                <View className="items-center py-1">
+                    <Pressable onPress={() => navigation.navigate('Login')}>
+                        <Text className="text-sm">Already have an account? <Text className="text-md font-bold text-purple-600"> Login</Text></Text>
+                    </Pressable>
+                </View>
+            </View> */}
         </View>
     </SafeAreaView>
   )

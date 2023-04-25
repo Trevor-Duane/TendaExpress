@@ -2,11 +2,8 @@ import { View, Text, Image, TextInput, ScrollView } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { UserCircleIcon, Bars3Icon, MagnifyingGlassIcon } from "react-native-heroicons/solid";
+import { UserCircleIcon, Bars3Icon, MagnifyingGlassIcon, Bars3BottomLeftIcon } from "react-native-heroicons/solid";
 import CategoriesComponent from '../components/CategoriesComponent';
-import ChefSpecial from '../components/ChefSpecial';
-import Menu from '../components/Menu';
-import NavDrawer from '../components/NavDrawer';
 import { StatusBar } from 'expo-status-bar';
 
 const HomeScreen = () => {
@@ -21,25 +18,25 @@ const HomeScreen = () => {
     
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
+    <SafeAreaView className="flex-1 bg-[#A020F0]">
         <StatusBar backgroundColor='#A020f0' barStyle="light-content"/>
         {/* Header */}
-
          <View className="bg-[#A020F0]">
-               <View className="flex-row pb-3 items-center mx-2 mt-5 justify-between">
+               <View className="flex-row items-center px-2 pt-2 justify-between">
                     <View>
-                        <Bars3Icon 
+                        <Bars3BottomLeftIcon 
                             onPress={() => navigation.openDrawer()} title='left drawer'
-                            size={32} 
+                            size={28} 
                             color="#fff"
                         />
                     </View>
 
                     <View className="flex-1">
-                        <Text className="font-extrabold text-xl text-center text-white">Menu</Text>
+                        <Text className="font-extrabold text-2xl text-center text-white">Menu</Text>
                     </View>
                 </View>
          </View>
+
 
          {/* Body */}
          <ScrollView nestedScrollEnabled={true}>

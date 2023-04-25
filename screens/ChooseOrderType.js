@@ -165,6 +165,8 @@ useEffect(() => {
                 AsyncStorage.removeItem('saddress')
                 AsyncStorage.setItem('saddress', JSON.stringify(RestaurantLocation))
                 navigation.navigate("Baskets")
+                // navigation.navigate("Cart")
+
               }
               return
             }}

@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { ArrowLeftIcon, Bars3BottomLeftIcon } from 'react-native-heroicons/solid';
 
-const ProfileScreen = () => {
+const Favourite = () => {
     const navigation =  useNavigation();
 
   return (
@@ -23,7 +23,7 @@ const ProfileScreen = () => {
                     </View>
 
                     <View className="flex-1">
-                        <Text className="font-extrabold text-xl text-center text-white">Your Profiles</Text>
+                        <Text className="font-extrabold text-xl text-center text-white">Favourites</Text>
                     </View>
                 </View>
          </View>
@@ -36,4 +36,4 @@ const ProfileScreen = () => {
   )
 }
 
-export default ProfileScreen
+export default Favourite

@@ -3,8 +3,7 @@ import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-
-import AllMenu from '../components/AllMenu';
+import PickGoMenu from '../components/PickGoMenu';
 
 const PickGoHome = () => {
     const navigation =  useNavigation();
@@ -28,7 +27,7 @@ const PickGoHome = () => {
             <Text className="text-gray-500 text-lg font-bold">Fast & Delicious{"\n"}Food</Text>
         </View>
 
-        <AllMenu/>
+        <PickGoMenu/>
     </SafeAreaView>
   )
 }

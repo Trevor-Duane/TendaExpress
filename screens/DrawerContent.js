@@ -4,6 +4,7 @@ import { Avatar, Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switc
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import actions from '../actions';
 
 
@@ -11,6 +12,9 @@ import actions from '../actions';
 
 const DrawerContent = (props) => {
   const userData = useSelector((state) => state.auth.userData)
+
+  const navigation =  useNavigation();
+
 
   const signOut = () => {
     Alert.alert(
@@ -62,7 +66,7 @@ const DrawerContent = (props) => {
                   />
               )}
               label="My Account"
-              onPress={() => {}}
+              onPress={() => navigation.navigate('Profile')}
             />
 
             <DrawerItem
@@ -74,7 +78,7 @@ const DrawerContent = (props) => {
                   />
               )}
               label="Order History"
-              onPress={() => {}}
+              onPress={() => navigation.navigate('History')}
             />
 
             <DrawerItem
@@ -86,7 +90,7 @@ const DrawerContent = (props) => {
                   />
               )}
               label="Chef's Specials"
-              onPress={() => {}}
+              onPress={() => navigation.navigate('Specials')}
             />
 
             <DrawerItem
@@ -98,7 +102,7 @@ const DrawerContent = (props) => {
                   />
               )}
               label="Favourites"
-              onPress={() => {}}
+              onPress={() => navigation.navigate('Favourites')}
             />
 
             <DrawerItem
@@ -110,7 +114,7 @@ const DrawerContent = (props) => {
                   />
               )}
               label="Settings"
-              onPress={() => {}}
+              onPress={() => navigation.navigate('Settings')}
             />
 
             <DrawerItem
@@ -122,7 +126,7 @@ const DrawerContent = (props) => {
                   />
               )}
               label="Help & FAQs"
-              onPress={() => {}}
+              onPress={() => navigation.navigate('Help')}
             />
 
           </Drawer.Section>

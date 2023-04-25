@@ -70,7 +70,7 @@ const CategoryScreen = () => {
     <StatusBar className="bg-white" barStyle="light-content"/>
     <BasketIcon/>
     <ScrollView>
-    <View className="relative mt-4">
+    <View className="relative pt-2">
         <Image source={{
             uri: category_image
         }}
@@ -79,7 +79,7 @@ const CategoryScreen = () => {
         <TouchableOpacity 
             onPress={() => navigation.goBack()}
             className="bg-gray-100 p-2 absolute left-3 top-4 rounded-full">
-            <ArrowLeftIcon size={24} color="#6C0BA9" />
+            <ArrowLeftIcon size={20} color="#6C0BA9" />
         </TouchableOpacity>
     </View>
 

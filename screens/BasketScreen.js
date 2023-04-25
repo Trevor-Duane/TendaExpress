@@ -9,6 +9,7 @@ import { selectCategory } from '../reducers/categorySlice';
 import { selectBasketItems, selectBasketTotal } from '../reducers/basketSlice';
 import { removeFromBasket } from '../reducers/basketSlice';
 import { Image } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BasketScreen = () => {
@@ -49,6 +50,8 @@ const BasketScreen = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
+        <StatusBar backgroundColor='#fff' barStyle="light-content"/>
+
       <View className="flex-1 p-2 bg-gray-100">
         <View className="p-5 border-b border-[#D7A1F9] bg-white shadow-xs">
           <View>
@@ -99,21 +102,24 @@ const BasketScreen = () => {
                 </TouchableOpacity>
             </View>
           ))}
+
+          <View style={{ display: items.length == 0  ? "flex" : "none"}}>
+            <Text className="text-base text-gray-600 text-center p-4">No items in basket</Text>
+          </View>
         </ScrollView>
 
-        <View className="p-4 bg-white mt-5 space-y-4">
+        <View className="p-5 bg-white mt-5 space-y-4">
           <View className="flex-row justify-between">
             <Text className="text-gray-400">Subtotal</Text>
             <Text className="text-[#51087E]">
-              <Currency quantity={basketTotal} currency="UGX" pattern="##,### !"/>
+              <Currency quantity={Number(basketTotal)} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
 
           <View className="flex-row justify-between">
             <Text className="text-gray-400">Delivery fee</Text>
-            {/* <Text className="text-[#51087E] font-bold"> */}
-            <Text className="text-gray-400 font-bold">
-              <Currency quantity={delivery_distance} currency="UGX" pattern="##,### !"/>
+            <Text className="text-[#51087E]">
+              <Currency quantity={Number(0.02*basketTotal)} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
 
@@ -124,7 +130,7 @@ const BasketScreen = () => {
             </Text>
           </View>
 
-        <TouchableOpacity className="rounded-lg bg-purple-600 p-3" onPress={() => navigation.navigate('Payments')}>
+        <TouchableOpacity className="rounded-lg bg-purple-600 p-2" style={{ display: items.length == 0  ? "none" : "flex"}} onPress={() => navigation.navigate('Chooseordertype')}>
                 <Text className="text-white text-center font-bold text-lg">Place Order</Text>
         </TouchableOpacity>
         </View>

@@ -32,9 +32,10 @@ useEffect(() => {
     <ScrollView 
     showsHorizontalScrollIndicator={false}
     contentContainerStyle={{
+      width: "100%"
     }}>
 
-    <View className="flex-row flex-wrap mb-4 mt-2">
+    <View className="flex-row flex-wrap mt-2 pt-3 pb-4 w-screen justify-between bg-white">
       {Categories.map((Category) => (
            <CategoryCard 
            key={Category.id}

@@ -4,8 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { ArrowLeftIcon, Bars3BottomLeftIcon } from 'react-native-heroicons/solid';
-
-const ProfileScreen = () => {
+import SpecialsMenu from '../../components/SpecialsMenu';
+const ChefSpecial = () => {
     const navigation =  useNavigation();
 
   return (
@@ -23,12 +23,19 @@ const ProfileScreen = () => {
                     </View>
 
                     <View className="flex-1">
-                        <Text className="font-extrabold text-xl text-center text-white">Your Profiles</Text>
+                        <Text className="font-extrabold text-xl text-center text-white">Chef's Sepcials</Text>
                     </View>
                 </View>
          </View>
 
-         <View className="flex-1 bg-gray-200">
+         <View className="flex-1 bg-gray-200 pb-4">
+            <View className="p-2">
+                <Text className="text-2xl font-bold w-40">Our Chef's Special </Text>
+            </View>
+
+            <View className="pb-20">
+                <SpecialsMenu/>
+            </View>
 
          </View>
 
@@ -36,4 +43,4 @@ const ProfileScreen = () => {
   )
 }
 
-export default ProfileScreen
+export default ChefSpecial

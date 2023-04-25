@@ -135,10 +135,11 @@ const LoginScreen = () => {
                         </Pressable>
                     </View>
 
-                    <View className="items-center py-2">
-                        <Text className="text-sm">Don't have have an account?
-                                <Text onPress={() => navigation.navigate('Signup')} className="items-baseline text-sm text-purple-600"> Sign Up</Text>
-                        </Text>
+                    <View className="items-center py-4">
+                        <Pressable onPress={() => navigation.navigate('Signup')}>
+                            <Text className="text-sm">Dont't have an account? <Text className="items-baseline text-md text-purple-600 font-bold p-2"> Sign Up</Text></Text>
+                        </Pressable>
+
                     </View>
                 </View>
             </Animatable.View>          

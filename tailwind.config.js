@@ -11,7 +11,12 @@ module.exports = {
      
   },
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        lato: ["lato"],
+        lilita: ["lilita-one"]
+      },
+    },
   },
   plugins: [],
 }

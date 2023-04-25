@@ -3,10 +3,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import React from 'react'
 import { MagnifyingGlassIcon } from 'react-native-heroicons/solid';
 import StoryCard from '../components/StoryCard';
+import { StatusBar } from 'expo-status-bar';
+
 
 const DiscoverScreen = () => {
   return (
     <SafeAreaView className="bg-white flex-1">
+        <StatusBar backgroundColor='#fff' barStyle="light-content"/>
       <View>
         <View className="flex-row justify-between items-center">
           <View className="p-2">

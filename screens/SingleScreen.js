@@ -2,7 +2,6 @@ import { View, Text, Image, Pressable, Button, TouchableOpacity } from 'react-na
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native'
 import React from 'react'
-import CartScreen from './CartScreen';
 import { StatusBar } from 'expo-status-bar';
 import { ArrowLeftIcon, MinusIcon, PlusIcon, StarIcon } from 'react-native-heroicons/solid';
 import BasketIcon from '../components/BasketIcon';

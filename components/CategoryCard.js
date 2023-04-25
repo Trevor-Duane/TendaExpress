@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image} from 'react-native'
+import { View, Text, TouchableOpacity, Image, Dimensions} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
@@ -9,10 +9,14 @@ const CategoryCard = ({
   category_description
 }) => {
   const navigation =  useNavigation();
+  // const {height, width} = Dimensions.get('screen')
+  // const containerWidth = (Math.ceil(width)) / 2
+  // console.log(containerWidth)
+  // console.log(Math.ceil(width))
 
   return (
     <TouchableOpacity
-      className="w-[48%] m-1 items-center justify-center"
+      className="w-[50%] items-center justify-center p-2"
       onPress={() => {
         navigation.navigate('Catscreen', {
           id,
@@ -21,11 +25,11 @@ const CategoryCard = ({
           category_description
         })}}
         >
-      <View className="shadow">
+      <View className="shadow bg-purple-300 rounded">
         <Image
           source={{
             uri: category_image }}
-          className="h-48 w-48 rounded"/>
+          className="h-44 w-44 rounded"/>
       </View>
       
       <View>

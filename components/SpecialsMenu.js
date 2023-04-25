@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ShoppingCartIcon } from 'react-native-heroicons/solid';
 
 
-const AllMenu = () => {
+const SpecialsMenu = () => {
   const navigation =  useNavigation();
   // console.log(Dishes)
 
@@ -53,7 +53,7 @@ const AllMenu = () => {
   )
 }
 
-export default AllMenu
+export default SpecialsMenu
 
 const styles = StyleSheet.create({
   button:{

@@ -62,9 +62,10 @@ const GetStarted = () => {
                     <Image className="h-5 w-5" source={{uri: "https://cdn-icons-png.flaticon.com/512/5968/5968534.png"}}/>
                     <Image className="h-5 w-5" source={{uri: "https://cdn-icons-png.flaticon.com/512/3128/3128304.png"}}/>
                 </View> */}
-                <View className="mt-2">
-                    <Text className=" text-[#E2C0F8] text-base">Don't have an account? <Text className=" text-white font-bold"> Signup</Text></Text>
-                </View>
+                <Pressable onPress={() => navigation.navigate('Signup')} className="pt-4">
+                    <Text className="text-[#E2C0F8] text-base">Dont't have an account? <Text className="text-white font-bold"> Sign Up</Text></Text>
+                </Pressable>
+
             </View>
             </View>
         
