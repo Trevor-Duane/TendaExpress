@@ -2,7 +2,7 @@ import React from 'react';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import GOOGLE_API_KEY from '../constants/maps';
+import { GOOGLE_API_KEY } from '../constants/maps';
 import { CalculatorIcon, MapPinIcon, MinusIcon, PlusIcon } from 'react-native-heroicons/solid';
 import MapViewDirections from 'react-native-maps-directions';
 

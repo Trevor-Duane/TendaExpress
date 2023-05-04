@@ -19,7 +19,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView className="flex-1 bg-[#A020F0]">
-        <StatusBar backgroundColor='#A020f0' barStyle="light-content"/>
+        <StatusBar backgroundColor='#A020f0' Style="light"/>
         {/* Header */}
          <View className="bg-[#A020F0]">
                <View className="flex-row items-center px-2 pt-2 justify-between">

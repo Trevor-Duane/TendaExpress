@@ -1,7 +1,11 @@
 import { View, Text, BackHandler, Image, TouchableOpacity } from 'react-native'
 import sucesss from "../assets/images/awesome.png"
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useDispatch, useSelector } from "react-redux"
+import { selectBasketItems, selectBasketTotal } from '../reducers/basketSlice'
+import { emptyBasket } from "../reducers/basketSlice";
 import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let currentLocation = { 
   streetName: "Bwebajja",
@@ -19,13 +23,32 @@ let address = {
   }
 }
 
-export default function PaymentSuccess({ navigation }) {
-    React.useEffect(() => {
-        const backHandler = BackHandler.addEventListener
-        ('hardwareBackPress', () => {return true})
+const clearAsync = async () => {
+  try {
+    await AsyncStorage.multiRemove(['serviceType', 'pdistance', 'saddress'])
+    console.log("AsyncStorage Cleared")
+  } catch (error) {
+    console.log(error)
+    
+  }
 
-        return () => backHandler.remove();
-    }, [])
+}
+
+export default function PaymentSuccess({ navigation }) {
+
+  const dispatch = useDispatch();
+  const items = useSelector(selectBasketItems);
+
+  // const emptyCart = () => {
+  //  return dispatch({emptyBasket})
+  // }
+
+  React.useEffect(() => {
+      const backHandler = BackHandler.addEventListener
+      ('hardwareBackPress', () => {return true})
+
+      return () => backHandler.remove();
+  }, [])
   return (
     <SafeAreaView className="flex-1 bg-white p-2">
         <View className="flex-1 justify-center items-center">
@@ -40,10 +63,13 @@ export default function PaymentSuccess({ navigation }) {
         </View>
         <View className="absolute bottom-0">
             <View className="items-center justify-center w-screen px-2 mb-2">
-                <TouchableOpacity onPress={() => navigation.navigate('Map', {
-                  currentLocation,
-                  address
-                })} className="bg-purple-600 rounded w-full">
+                <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Home')
+                  dispatch(emptyBasket())
+                  clearAsync()
+                }}
+                className="bg-purple-600 rounded w-full">
                     <Text className="text-white text-base font-bold text-center px-3 py-2">Done</Text>
                 </TouchableOpacity>
             </View>
@@ -51,3 +77,5 @@ export default function PaymentSuccess({ navigation }) {
     </SafeAreaView>
   )
 }
+
+

@@ -1,9 +1,9 @@
-import { View, Text } from 'react-native'
+import { View, Text, Pressable, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { ArrowLeftIcon, Bars3BottomLeftIcon } from 'react-native-heroicons/solid';
+import { ArrowLeftIcon, Bars3BottomLeftIcon, ShareIcon, StarIcon } from 'react-native-heroicons/solid';
 
 const Setting = () => {
     const navigation =  useNavigation();
@@ -14,13 +14,12 @@ const Setting = () => {
         {/* Header */}
          <View className="bg-[#A020F0]s">
                <View className="flex-row items-center px-2 pt-2 pb-1 justify-between">
-                    <View className="rounded px-1 shadows">
+                    <TouchableOpacity className="rounded px-1 shadows" onPress={() => navigation.goBack()}>
                         <ArrowLeftIcon 
-                            onPress={() => navigation.goBack()}
                             size={20} 
                             color="#fff"
                         />
-                    </View>
+                    </TouchableOpacity>
 
                     <View className="flex-1">
                         <Text className="font-extrabold text-xl text-center text-white">Settings</Text>
@@ -29,6 +28,20 @@ const Setting = () => {
          </View>
 
          <View className="flex-1 bg-gray-200">
+
+            <View className="p-2 space-y-4 m-2">
+
+                <Pressable className="flex-row items-center space-x-2 bg-white rounded p-1">
+                    <ShareIcon size={28} color="#A020F0"/>
+                    <Text className="text-base font-semibold py-2">Share App</Text>
+
+                </Pressable>
+
+                <Pressable className="flex-row items-center space-x-2 bg-white rounded p-1">
+                    <StarIcon size={28} color="#A020F0"/>
+                    <Text className="text-base font-semibold py-2">Rate App</Text>
+                </Pressable>
+            </View>
 
          </View>
 

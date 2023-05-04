@@ -23,17 +23,22 @@ export const basketSlice = createSlice({
       if(index >= 0){ 
         newBasket.splice(index, 1);
       }else{
+        
         console.warn(
           `cant remove product (id: ${action.payload.id}) as its not in basket`
         );
       }
       state.items = newBasket
     },
+    emptyBasket: (state) => {
+      state.items = []
+      
+    },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { addToBasket, removeFromBasket } = basketSlice.actions
+export const { addToBasket, removeFromBasket, emptyBasket } = basketSlice.actions
 
 export const selectBasketItems = (state) => state.basket.items;
 

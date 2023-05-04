@@ -4,6 +4,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { selectBasketItems, selectBasketTotal } from '../reducers/basketSlice'
 import { useNavigation } from '@react-navigation/native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BasketIcon = () => {
     const items = useSelector(selectBasketItems);
@@ -12,7 +13,7 @@ const BasketIcon = () => {
   
   return (
     <View className={`absolute bottom-4 w-full z-50`} style={{ display: items.length == 0  ? "none" : "flex"}}>
-      <TouchableOpacity onPress={() => navigation.navigate('Chooseordertype')} className="bg-purple-300 flex-row p-3 mx-3 rounded-lg items-center space-x-2">
+      <TouchableOpacity onPress={() => navigation.navigate('Baskets')} className="bg-purple-300 flex-row p-3 mx-3 rounded-lg items-center space-x-2">
         <Text className="text-white font-extrabold text-lg bg-[#51087E] py-1 px-2 rounded-md">{items.length}</Text>
         <Text className="flex-1 font-extrabold text-lg text-center">Checkout</Text>
         <Text className="text-lg text-[#51087E] font-extrabold">

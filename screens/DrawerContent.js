@@ -90,19 +90,20 @@ const DrawerContent = (props) => {
                   />
               )}
               label="Chef's Specials"
-              onPress={() => navigation.navigate('Specials')}
+              // onPress={() => navigation.navigate('Specials')}
+              onPress={() => alert('Specials Coming Soon, Sorry!!!')}
             />
 
             <DrawerItem
               icon={({color, size}) => (
                 <MaterialCommunityIcons 
-                  name="heart" 
+                  name="comment-quote" 
                   color={color}
                   size={size}
                   />
               )}
-              label="Favourites"
-              onPress={() => navigation.navigate('Favourites')}
+              label="Give Feedback"
+              onPress={() => navigation.navigate('Feedbacks')}
             />
 
             <DrawerItem
@@ -117,7 +118,7 @@ const DrawerContent = (props) => {
               onPress={() => navigation.navigate('Settings')}
             />
 
-            <DrawerItem
+            {/* <DrawerItem
               icon={({color, size}) => (
                 <MaterialCommunityIcons 
                   name="help-circle" 
@@ -127,7 +128,7 @@ const DrawerContent = (props) => {
               )}
               label="Help & FAQs"
               onPress={() => navigation.navigate('Help')}
-            />
+            /> */}
 
           </Drawer.Section>
         </View>

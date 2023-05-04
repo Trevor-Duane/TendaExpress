@@ -7,7 +7,7 @@ import { ChevronLeftIcon, ChevronRightIcon, EllipsisHorizontalIcon, MapPinIcon, 
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCategory } from '../reducers/categorySlice';
 import { selectBasketItems, selectBasketTotal } from '../reducers/basketSlice';
-import { removeFromBasket } from '../reducers/basketSlice';
+import { removeFromBasket, emptyBasket } from '../reducers/basketSlice';
 import { Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -17,7 +17,6 @@ const BasketScreen = () => {
   const category = useSelector(selectCategory);
   const items = useSelector(selectBasketItems);
   const basketTotal = useSelector(selectBasketTotal);
-  const [delivery_distance, setDelivery_distance] = useState(0);
   const [groupItemsInBasket, setGroupItemsInBasket] = useState([]);
   const dispatch = useDispatch();
 
@@ -31,26 +30,10 @@ const BasketScreen = () => {
 
   }, [items])
 
-  // console.log("groupedbasket", groupItemsInBasket)
-  // console.log("items", items)
-  
-  useEffect(() => {
-    const fetchDistance = async () => {
-      const pdistance = parseInt(await AsyncStorage.getItem("pdistance"))
-      console.log("first pdisatnce", pdistance)
-      console.log(typeof(pdistance))
-      if(pdistance && pdistance >= 0){
-        setDelivery_distance(pdistance)
-
-      }
-      console.log("pdistance here", delivery_distance)
-    }
-    fetchDistance()
-  })
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-        <StatusBar backgroundColor='#fff' barStyle="light-content"/>
+    <SafeAreaView className="flex-1 bg-[#A020F0]">
+      <StatusBar backgroundColor='#A020f0' barStyle="light-content"/>
 
       <View className="flex-1 p-2 bg-gray-100">
         <View className="p-5 border-b border-[#D7A1F9] bg-white shadow-xs">
@@ -58,27 +41,17 @@ const BasketScreen = () => {
             <Text className="font-extrabold text-lg text-center">Basket</Text>
           </View>
 
-          <TouchableOpacity onPress={navigation.goBack} className="top-3 right-3 absolute">
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(emptyBasket())
+              navigation.navigate('Home')
+
+            }}
+            className="top-3 right-3 absolute">
             <XCircleIcon size={40} color="#6C0BA9"/>
           </TouchableOpacity>
         </View>
-
-        {/* <View>
-          <TouchableOpacity className="flex-row items-center space-x-2 p-2 border-y border-gray-200">
-            <QuestionMarkCircleIcon size={20} color="gray" opacity={0.5}/>
-            <Text className="flex-1">Your order type</Text>
-            <ChevronRightIcon color="#6C0BA9"/>
-          </TouchableOpacity>
-        </View>
-        <View className="bg-white p-1"></View>
-        <View>
-          <TouchableOpacity className="flex-row items-center space-x-2 p-2 border-y border-gray-200">
-            <MapPinIcon size={20} color="#6c0ba9" opacity={0.5}/>
-            <Text className="flex-1">Delivery Address</Text>
-            <ChevronRightIcon color="#6C0BA9"/>
-          </TouchableOpacity>
-        </View> */}
-        
+  
         <ScrollView className="divide-y divide-purple-400">
           {Object.entries(groupItemsInBasket).map(([key, items]) => (
             <View key={key} className="flex-row items-center space-x-3 bg-white py-2 px-5">
@@ -112,26 +85,27 @@ const BasketScreen = () => {
           <View className="flex-row justify-between">
             <Text className="text-gray-400">Subtotal</Text>
             <Text className="text-[#51087E]">
-              <Currency quantity={Number(basketTotal)} currency="UGX" pattern="##,### !"/>
+              <Currency quantity={basketTotal} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
 
           <View className="flex-row justify-between">
             <Text className="text-gray-400">Delivery fee</Text>
             <Text className="text-[#51087E]">
-              <Currency quantity={Number(0.02*basketTotal)} currency="UGX" pattern="##,### !"/>
+              <Currency quantity={0} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
 
           <View className="flex-row justify-between">
             <Text>Order Total</Text>
             <Text className="text-[#51087E] font-bold">
-              <Currency quantity={Number(basketTotal+(0.02*basketTotal))} currency="UGX" pattern="##,### !"/>
+              {/* <Currency quantity={Number(basketTotal+(delivery_distance))} currency="UGX" pattern="##,### !"/> */}
+              <Currency quantity={basketTotal} currency="UGX" pattern="##,### !"/>
             </Text>
           </View>
 
         <TouchableOpacity className="rounded-lg bg-purple-600 p-2" style={{ display: items.length == 0  ? "none" : "flex"}} onPress={() => navigation.navigate('Chooseordertype')}>
-                <Text className="text-white text-center font-bold text-lg">Place Order</Text>
+                <Text className="text-white text-center font-bold text-lg">Checkout</Text>
         </TouchableOpacity>
         </View>
       </View>

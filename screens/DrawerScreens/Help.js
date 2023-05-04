@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -14,13 +14,12 @@ const Help = () => {
         {/* Header */}
          <View className="bg-[#A020F0]s">
                <View className="flex-row items-center px-2 pt-2 pb-1 justify-between">
-                    <View className="rounded px-1 shadows">
+                    <TouchableOpacity className="rounded px-1 shadows" onPress={() => navigation.goBack()}>
                         <ArrowLeftIcon 
-                            onPress={() => navigation.goBack()}
                             size={20} 
                             color="#fff"
                         />
-                    </View>
+                    </TouchableOpacity>
 
                     <View className="flex-1">
                         <Text className="font-extrabold text-xl text-center text-white">Help & FAQ's</Text>

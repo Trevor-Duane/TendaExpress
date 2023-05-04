@@ -6,6 +6,7 @@ import Discover from '../screens/DiscoverScreen';
 import OrderTracking from '../screens/OrderTracking';
 import RunningOrders from '../screens/RunningOrders';
 import BasketScreen from '../screens/BasketScreen';
+import PromotionsScreen from '../screens/PromotionsScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -37,12 +38,12 @@ const MainTabScreen = () => {
         }}
       />
       <Tab.Screen
-        name="Discover"
-        component={Discover}
+        name="Offers"
+        component={PromotionsScreen}
         options={{
-          tabBarLabel: 'Discover',
+          tabBarLabel: 'Offers',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="beach" color={color} size={26} />
+            <MaterialCommunityIcons name="food-turkey" color={color} size={26} />
           ),
         }}
       />

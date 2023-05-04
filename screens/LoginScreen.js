@@ -3,6 +3,7 @@ import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Animatable from 'react-native-animatable';
 import React, { useLayoutEffect, useState, useContext } from 'react'
+import wallpaper from '../assets/images/wallpaper.png'
 import { useNavigation } from '@react-navigation/native';
 import * as Font from 'expo-font';
 

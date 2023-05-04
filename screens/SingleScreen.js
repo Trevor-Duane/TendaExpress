@@ -5,6 +5,8 @@ import React from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { ArrowLeftIcon, MinusIcon, PlusIcon, StarIcon } from 'react-native-heroicons/solid';
 import BasketIcon from '../components/BasketIcon';
+import { useDispatch, useSelector } from "react-redux"
+import { addToBasket, selectBasketItemsWithId, removeFromBasket, selectBasketItems } from "../reducers/basketSlice";
 
 const SingleScreen = () => {
   const navigation =  useNavigation();
@@ -16,13 +18,26 @@ const SingleScreen = () => {
     imgUrl,
 }} = useRoute();
 
+  const items = useSelector((state) => selectBasketItemsWithId(state, id));
+  const dispatch = useDispatch();
+
+  const addItemsToBasket = () => {
+    dispatch(addToBasket({id, subcategory_id, item_name, item_description, item_price, item_image}));
+  } 
+
+  const removeItemsFromBasket = () => {
+    if(!items.length > 0) return;
+
+    dispatch(removeFromBasket({id}))
+  }
+
   return (
     <>
     <SafeAreaView className="flex-1 bg-white">
       <StatusBar className="bg-purple-600" barStyle="light-content"/>
 
       <View className="w-fulls border-t-2 border-purple-400">
-          <Pressable onPress={() => navigation.goBack()} className="absolute z-50 left-2 top-2 h-7 shadow w-7 rounded-full bg-purple-600 justify-center items-center">
+          <Pressable onPress={() => navigation.navigate('Specials')} className="absolute z-50 left-2 top-2 h-7 shadow w-7 rounded-full bg-purple-600 justify-center items-center">
             <ArrowLeftIcon size={18} color="#ffffff"/>
           </Pressable>
 
@@ -43,15 +58,15 @@ const SingleScreen = () => {
         </View>
 
         <View className="mx-2 flex-row items-center shadow-xl justify-center bg-gray-200 w-20 h-7 rounded-full space-x-1">
-            <Pressable onPress={() => {}} className="">
+            <Pressable onPress={removeItemsFromBasket} className="">
               <MinusIcon size={16} color="#51087E"/>
             </Pressable>
 
             <View className="">
-              <Text className="text-sm text-black font-bold p-1">0</Text>
+              <Text className="text-sm text-black font-bold p-1">{items.length}</Text>
             </View>
 
-            <Pressable onPress={() => {}} className="p-1">
+            <Pressable onPress={addItemsToBasket} className="p-1">
               <PlusIcon size={16} color="#51087E"/>
             </Pressable>
             

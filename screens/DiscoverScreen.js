@@ -8,29 +8,20 @@ import { StatusBar } from 'expo-status-bar';
 
 const DiscoverScreen = () => {
   return (
-    <SafeAreaView className="bg-white flex-1">
-        <StatusBar backgroundColor='#fff' barStyle="light-content"/>
-      <View>
-        <View className="flex-row justify-between items-center">
-          <View className="p-2">
-            <Text className="text-2xl font-black w-40">This is where we tell stories </Text>
-          </View>
-          <View className="flex-row justify-around items-center gap-2 p-2">
-            <Text className="bg-[#A020F0] text-white font-bold py-1 px-3 rounded-2xl">Latest</Text>
-            <Text className="bg-gray-200 text-gray-500 font-bold py-1 px-3 rounded-2xl">Popular</Text>
-          </View>
-        </View>
+    <SafeAreaView className="bg-[#A020F0] flex-1">
+      <StatusBar backgroundColor='#A020f0' barStyle="light-content"/>
 
-        <View className="flex-row items-center space-x-2 bg-gray-200 rounded-lg p-2 mx-2">
-            <MagnifyingGlassIcon size={18} color="#000000" className="font-bold" />
-            <TextInput
-                className=""
-                placeholder='Search stories'
-                keyboardType='default'
-            />
+      <View className="flex-row justify-between items-center">
+        <View className="p-2">
+          <Text className="text-2xl font-black w-40 text-white">This is where we tell stories </Text>
+        </View>
+        <View className="flex-row justify-around items-center gap-2 p-2">
+          <Text className="bg-[#A020F0] text-white font-bold py-1 px-3 rounded-2xl">Latest</Text>
+          <Text className="bg-gray-100 text-[#A020F0] font-bold py-1 px-3 rounded-2xl">Popular</Text>
         </View>
       </View>
-      <View className=" mt-4 mb-32">
+
+      <View className="bg-white pt-2 pb-20">
         <ScrollView className="py-3">
           <StoryCard/>
           <StoryCard/>
