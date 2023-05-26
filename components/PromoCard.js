@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 
-export default function PromoCard({offer_img, offer_title, offer_day, offer_body}) {
+export default function PromoCard({offer_cover, offer_title, offer_day, offer_body}) {
   const navigation =  useNavigation();
 
   return (
@@ -11,7 +11,7 @@ export default function PromoCard({offer_img, offer_title, offer_day, offer_body
         <View>
             <View>
                 <Image 
-                    source={{uri: offer_img}}
+                    source={{uri: offer_cover}}
                     className="h-24 w-24 rounded-lg"
                 />
             </View>

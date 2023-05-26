@@ -8,7 +8,8 @@ export const baseOrderFee = 0
 
 export const RestaurantLocation = [ 
     {
-      latitude: "0.18441485939905478",
-      longitude: "32.538370291740904"
+      "address_latitude": 0.18441485939905478,
+      "address_longitude": 32.538370291740904
     }
   ]
+

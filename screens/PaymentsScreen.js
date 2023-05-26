@@ -9,9 +9,11 @@ import { RadioGroup } from 'react-native-radio-buttons-group';
 import { RadioButton } from 'react-native-paper';
 import axios from 'axios';
 import { Base_Url } from '../constants/api';
+import { RestaurantLocation } from '../constants/maps';
 import headers from '../constants/headers';
 import { showSuccess } from '../utils/helperFunction';
 import { ArrowLeftIcon } from 'react-native-heroicons/solid';
+import { getDistance, getPreciseDistance } from 'geolib';
 import { useDispatch, useSelector } from "react-redux"
 
 
@@ -19,6 +21,9 @@ const PaymentsScreen = () => {
     const navigation =  useNavigation();
 
     const userData = useSelector((state) => state.auth.userData);
+
+    // const setAddress = JSON.parse(AsyncStorage.getItem('saddress'))
+
     
     const items = useSelector(selectBasketItems);
     const basketTotal = useSelector(selectBasketTotal)
@@ -27,7 +32,12 @@ const PaymentsScreen = () => {
     const [isLoading, setIsLoading] = React.useState(false);
     const [paystatus, setPaystatus] = React.useState(0)
 
-    const [amount, setAmount] = React.useState(null)
+
+    // const [user_id, setUser_id] = React.useState(userData.user.id);
+    // const [user_name, setUser_name] = React.useState(userData.user.username);
+    // const [user_contact, setUser_contact] = React.useState(userData.user.phonenumber);
+    // const [order_items, setOrder_items] = React.useState(items);
+    // const [order_basketTotal, setOrder_basketTotal] = React.useState(basketTotal);
 
     const [user_id, setUser_id] = React.useState("");
     const [user_name, setUser_name] = React.useState("");
@@ -35,62 +45,68 @@ const PaymentsScreen = () => {
     const [order_items, setOrder_items] = React.useState("");
     const [order_basketTotal, setOrder_basketTotal] = React.useState("");
     const [paymode, setPaymode] = React.useState("cash")
-    const [order_status, setOrder_status] = React.useState("");
+    const [order_status, setOrder_status] = React.useState("Preparing");
     const [order_type, setOrder_type] = React.useState("");
     const [delivery_fee, setDelivery_fee] = React.useState("");
     const [delivery_latitude, setDelivery_latitude] = React.useState("");
     const [delivery_longitude, setDelivery_longitude] = React.useState("");
+    const [amount, setAmount] = React.useState(null)
+
 
     const[mobile, setMobile] = React.useState("")
-    // console.log(order_type, "||", delivery_fee, "||", delivery_latitude, "||", delivery_longitude, "||", order_status, "||", order_basketTotal, "||", order_items, "||", user_contact, "||", user_name, "||", user_id)
 
-    // console.log(typeof(order_type))
-    // console.log(typeof(delivery_fee))
-    // console.log(typeof(delivery_latitude))
-    // console.log(typeof(delivery_longitude))
-    // console.log(typeof(order_status))
-    // console.log(typeof(order_basketTotal))
-    // console.log(typeof(order_items))
-    // console.log(typeof(user_contact))
-    // console.log(typeof(user_name))
-    // console.log(typeof(user_id))
+     // get all required data from local storage
+     React.useEffect(() => {
 
-    //get all required data from local storage
-    const fetchLSD = async () => {
-       try {
-        const orderType = await AsyncStorage.getItem('serviceType')
-        setOrder_type(orderType)
+        const fetchLSD = async () => {
 
-        const deliveryFee = await AsyncStorage.getItem('pdistance')
-        setDelivery_fee(deliveryFee)
+            try {
+                const orderType = await AsyncStorage.getItem('serviceType')
+                setOrder_type(orderType)
 
-        const setAddress = JSON.parse(await AsyncStorage.getItem('saddress'))
-        setDelivery_latitude(setAddress[0].address_latitude)
-        setDelivery_longitude(setAddress[0].address_longitude)
+                setUser_id(userData.user.id)
 
-        setUser_id(userData.user.id)
+                setUser_name(userData.user.username)
 
-        setUser_contact(userData.user.phonenumber)
+                setUser_contact(userData.user.phonenumber)
 
-        setUser_name(userData.user.username)
+                setOrder_items(items)
 
-        setOrder_items(items)
-
-        setOrder_basketTotal(basketTotal)
-
-        setAmount(Number(basketTotal) + Number(delivery_fee))
-
-        setOrder_status("Preparing")
-       } catch (error) {
-        console.log(error)
+                setOrder_basketTotal(basketTotal)
+     
+                const setAddress = JSON.parse(await AsyncStorage.getItem('saddress'))
+                // console.log("setAddress", setAddress)
+                // console.log("RestaurantLocation", RestaurantLocation)
         
-       }
+                const delivery_distance = getDistance(
+                    {latitude: setAddress[0].address_latitude, longitude: setAddress[0].address_longitude},
+                    {latitude: RestaurantLocation[0].address_latitude, longitude: RestaurantLocation[0].address_longitude}
+                )
+     
+                // setOrder_type(orderType)
+                setDelivery_latitude(setAddress[0].address_latitude)
+                setDelivery_longitude(setAddress[0].address_longitude)
         
-    }
+        
+                // console.log(delivery_distance)
+        
+                if (delivery_distance && delivery_distance <= 1000) {
+                    setDelivery_fee(1000)            
+                }
+                setDelivery_fee(delivery_distance)
+                setAmount(Number(basketTotal) + Number(delivery_fee))
+        
+                console.log(delivery_fee, "||", order_type, "||", delivery_latitude, "||", delivery_longitude, "||", user_id, "||", user_contact, "||", order_items, "||", order_basketTotal, "||", amount, "||", paymode)
+          
+            } catch (error) {
+                console.log(error)
+            }
+             
+         }
+         fetchLSD()
+     })
 
-    React.useEffect(() => {
-        fetchLSD()
-    }, [])
+     
 
     const postOrder = async () => {
       try {
@@ -104,7 +120,7 @@ const PaymentsScreen = () => {
             order_type: order_type,
             paymode: paymode,
             order_total: JSON.stringify(order_basketTotal),
-            delivery_fee: delivery_fee,
+            delivery_fee: JSON.stringify(delivery_fee),
             delivery_latitude: delivery_latitude,
             delivery_longitude: delivery_longitude,
         }, {headers: headers})
@@ -119,6 +135,7 @@ const PaymentsScreen = () => {
             setOrder_type("")
             setOrder_items("")
             setOrder_basketTotal("")
+            setAmount(null)
             setOrder_status("")
             setDelivery_fee("")
             setDelivery_latitude("")
@@ -128,7 +145,6 @@ const PaymentsScreen = () => {
             if(error.response){
             console.log(error.response.data);
             console.log(error.response.status);
-            console.log(error.response.headers);
             } else if(error.request){
             console.log(error.request);
             } else {
@@ -167,7 +183,7 @@ const PaymentsScreen = () => {
                             <Text className="font-bold text-white p-1">Order Total</Text>
                         </View>
                             <Text className="px-1 text-gray-600 font-bold p-1">
-                                <Currency quantity={basketTotal} currency="UGX" pattern="##,### !"/>
+                                <Currency quantity={Number(basketTotal)} currency="UGX" pattern="##,### !"/>
                             </Text>
                     </View>
 
@@ -176,7 +192,7 @@ const PaymentsScreen = () => {
                             <Text className="font-bold text-white p-1">Delivery fee</Text>
                         </View>
                             <Text className="px-1 text-gray-600 font-bold p-1">
-                                <Currency quantity={+delivery_fee} currency="UGX" pattern="##,### !"/>
+                                <Currency quantity={Number(delivery_fee)} currency="UGX" pattern="##,### !"/>
                             </Text>
                     </View>
                 </View>
@@ -229,7 +245,7 @@ const PaymentsScreen = () => {
                         <View className="flex-row  space-x-1 pt-2">
                             <Text className="text-gray-700 text-center text-xs">Amount:</Text>
                         <Text className="text-gray-700 text-center text-xs">
-                            <Currency quantity={amount} currency="UGX" pattern="##,### !"/>
+                            <Currency quantity={Number(amount)} currency="UGX" pattern="##,### !"/>
                         </Text>
                         </View>
                     </View>

@@ -2,6 +2,7 @@ import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import * as Progress from 'react-native-progress'
 import { SafeAreaView } from 'react-native-safe-area-context';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { ArrowLeftIcon, Bars3BottomLeftIcon, PhoneIcon } from 'react-native-heroicons/solid';
@@ -16,23 +17,32 @@ const OrderHistory = () => {
     const navigation =  useNavigation();
     const userData = useSelector((state) => state.auth.userData);
 
-    const [orders, setOrders] = React.useState([])
+    const [old_orders, setOld_orders] = React.useState([])
     const [user_id, setUser_id] = React.useState(userData.user.id)
+
+    const [isLoading, setIsLoading] = React.useState(false)
 
 
     //fetch active orders by user_id
     const fetchNewOrders = async () => {
+        setIsLoading(true)
        try {
         await axios.get(`${Base_Url}/neworders/${user_id}`, {headers: headers})
         .then(response => {
-            console.log(response.data)
-            setOrders(response.data.data)
+            console.log(response.data.data)
+            setOld_orders(response.data.data)
+            setIsLoading(false)
+
+            // const mydata = old_orders.filter(order => order.order_status === "Completed")
+            // setOld(mydata)
         })
         .catch(err => {
+            setIsLoading(false)
             console.error(err)
             console.log("error", err.message)
         })
        } catch (error) {
+        setIsLoading(false)
         console.log(error)
        }
     }
@@ -113,21 +123,40 @@ const OrderHistory = () => {
                 </View>
          </View>
 
-         <View className="flex-1 bg-gray-200">
-            <ScrollView>
-                {orders.filter(order => order.order_status === "Completed").map(o => 
-                    <OrderCard
-                    key={o.id}
-                    order_id={o.id}
-                    order_status={o.order_status}
-                    order_total={o.order_total}
-                />
-                )}
-            </ScrollView>
+        {isLoading ?
+        <View className="items-center justify-center flex-1">
+            <View className="items-center justify-center">
+                <Progress.Circle size={40} indeterminate={true} borderWidth={2} color="#ffffff"/>
+            </View>
+        </View>
+        : 
+        <View className="flex-1 bg-gray-200">
+        {old_orders.length === 0 ? (
+         <View className="flex-1 justify-center items-center">
+            <View className="items-center justify-center">
+             <MaterialCommunityIcons name="history" color="#E2c0F8" size={96} />
+             <Text className="text-base text-gray-600 text-center">Sorry, haven't made any orders</Text>
+            </View>
          </View>
+        ) : (
+           <ScrollView>
+               {old_orders.filter(order => order.order_status === "Completed").map(o => 
+                   <OrderCard
+                   key={o.id}
+                   order_id={o.id}
+                   order_status={o.order_status}
+                   order_total={o.order_total}
+               />
+               )}
+           </ScrollView>
+        )}
+           
+        </View>
+        }
 
     </SafeAreaView>
   )
 }
 
 export default OrderHistory
+

@@ -51,15 +51,25 @@ const CategoryScreen = () => {
 
     //fetch subcategories
     const fetchSubcategories = async () => {
-    await axios.get(`${Base_Url}/subcategory/${id}`, {headers: headers})
-    .then((response) => {
-        console.log(response.data)
-        setSubcategories(response.data.data)
-    })
-    .catch(err => {
-        console.error(err)
-        console.log("error", err.message)
-    })
+    try {
+        await axios.get(`${Base_Url}/subcategory/${id}`, {headers: headers})
+        .then((response) => {
+            console.log(response.data)
+            if(response.data != null){
+                setSubcategories(response.data.data)
+                // setSelectedSubCategory(Subcategories[0].id)
+                // setDishes(Subcategories[0].items)
+            }
+            
+        })
+        .catch(err => {
+            console.error(err)
+            console.log("error", err.message)
+        })
+    } catch (error) {
+        console.log(error)
+        
+    }
     
     }
     useEffect(() => {
@@ -77,7 +87,10 @@ const CategoryScreen = () => {
         className="w-full h-56 p-4 rounded-t-xl bg-gray-300"
         />
         <TouchableOpacity 
-            onPress={() => navigation.goBack()}
+            onPress={() => {
+                navigation.goBack()
+                setDishes([])
+            }}
             className="bg-gray-100 p-2 absolute left-3 top-4 rounded-full">
             <ArrowLeftIcon size={20} color="#6C0BA9" />
         </TouchableOpacity>

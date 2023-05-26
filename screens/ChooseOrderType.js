@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { zero_dis, RestaurantLocation } from '../constants/maps';
+import { RestaurantLocation } from '../constants/maps';
 import React, {useEffect, useState} from 'react'
 import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from 'react-native-heroicons/solid';
 
@@ -10,7 +10,11 @@ const ChooseOrderType = () => {
 const navigation =  useNavigation();
 const [option, setOption] = useState("");
 const [isSelected, setIsSelected] = useState(null);
-const [calc_distance, setCalc_distance] = useState(null);
+
+const address = [{
+  address_latitude: "0.18441485939905478",
+  address_longitude: "32.538370291740904"
+}]
 
 const OrderTypes = [
   {
@@ -41,19 +45,24 @@ const OrderTypes = [
 
 
 useEffect(() => {
-  function setType() {
-    if(isSelected == 1){
-        AsyncStorage.removeItem('pdistance')
-        AsyncStorage.setItem('serviceType', option)
+  const setType = async () => {
+    try {
+      if(isSelected == 1){
+        await AsyncStorage.setItem('serviceType', option)
+        await AsyncStorage.removeItem('saddress')
         console.log("theOption", isSelected, option)
     }
     else{
-      AsyncStorage.removeItem('pdistance')
-      setCalc_distance(zero_dis)
+      await AsyncStorage.setItem('saddress', JSON.stringify(address))
+      await AsyncStorage.setItem('serviceType', option)
 
-      AsyncStorage.setItem('serviceType', option )
-      AsyncStorage.setItem('pdistance', JSON.stringify(calc_distance))
+      const set = JSON.parse(await AsyncStorage.getItem('saddress'))
+
+      console.log("set address is",set)
       console.log("theOption", isSelected, option)
+    }
+    } catch (error) {
+      console.log(error)
     }
    
 
@@ -92,9 +101,9 @@ useEffect(() => {
         ))}
       </View>
       <View className="flex-1 p-2 bg-gray-100">
-        {OrderTypes.map((ordertype, index) => (
+        {OrderTypes.map((ordertype) => (
           <TouchableOpacity
-            onPress={() => {
+            onPressIn={() => {
               setIsSelected(ordertype.id)
               setOption(ordertype.value)
             }}
@@ -151,7 +160,7 @@ useEffect(() => {
         {isSelected != null ? 
         <View className="absolute bottom-4 items-center justify-center w-screen px-2">
         <TouchableOpacity 
-          onPress={() => isSelected === 1 ? (navigation.navigate('Addaddress')) : (navigation.navigate('Payments'))}
+          onPress={() => isSelected == 1 ? (navigation.navigate('Addaddress'), setIsSelected(null)) : (navigation.navigate('Payments'), setIsSelected(null))}
           className="bg-purple-600 rounded w-full"
         >
           <Text className="text-white text-base font-bold text-center px-2 py-3">Proceed</Text>

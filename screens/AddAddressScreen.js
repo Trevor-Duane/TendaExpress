@@ -58,50 +58,59 @@ export default function AddAddressScreen() {
 
   //select a single address rom fetchedAddresses
   React.useEffect(() => {
-    const selectAddress = () => {
-      setAddress(addresses.filter(a => a.id === isSelected))
+    const selectAddress = async () => {
+      try {
+        setAddress(addresses.filter(a => a.id === isSelected))
+        await AsyncStorage.setItem('saddress', JSON.stringify(address))
+
+        const set = await AsyncStorage.getItem('saddress')
+        console.log("set address is", set)
+
+      } catch (error) {
+        console.log("select address error", error)
+      }
     }
 
     selectAddress()
   }, [isSelected])
 
 
-const calculateDistance = async () => {
-  try {
-    // console.log("this is selected", address)
-    // console.log("Customer Location", address[0])
-    // console.log("Restaurant Location", RestaurantLocation[0])
-    await AsyncStorage.setItem('saddress', JSON.stringify(address))
+// const calculateDistance = async () => {
+//   try {
+//     console.log("this is selected", address)
+//     console.log("Customer Location", address[0])
+//     console.log("Restaurant Location", RestaurantLocation[0])
+//     await AsyncStorage.setItem('saddress', JSON.stringify(address))
 
-    const pdis = getPreciseDistance(
-      {latitude: address[0].address_latitude, longitude: address[0].address_longitude},
-      {latitude: RestaurantLocation[0].latitude, longitude: RestaurantLocation[0].longitude}
-    )
+//     const pdis = getPreciseDistance(
+//       {latitude: address[0].address_latitude, longitude: address[0].address_longitude},
+//       {latitude: RestaurantLocation[0].latitude, longitude: RestaurantLocation[0].longitude}
+//     )
 
-    console.log("pdis before the if", pdis)
+//     console.log("pdis before the if", pdis)
 
-    const set = await AsyncStorage.getItem('saddress')
-    console.log("setted", set)
+//     const set = await AsyncStorage.getItem('saddress')
+//     console.log("setted", set)
     
 
-    if(pdis <= base_dis){
-      return await AsyncStorage.setItem('pdistance', JSON.stringify(base_dis))
-    }
-    else {
-      return await AsyncStorage.setItem('pdistance', JSON.stringify(pdis))
-    }
+//     if(pdis <= base_dis){
+//       return await AsyncStorage.setItem('pdistance', JSON.stringify(base_dis))
+//     }
+//     else {
+//       return await AsyncStorage.setItem('pdistance', JSON.stringify(pdis))
+//     }
     
-  } catch (error) {
-    console.log(error)
+//   } catch (error) {
+//     console.log(error)
     
-  }
+//   }
     
-}
+// }
   
-  React.useEffect(() => {
-    calculateDistance()
+//   React.useEffect(() => {
+//     calculateDistance()
 
-  }, [address])
+//   }, [address])
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -122,7 +131,7 @@ const calculateDistance = async () => {
 
         {/* address card */}
         <View>
-          {addresses.map((address, index) => (
+          {addresses.map((address) => (
             <TouchableOpacity
                 key={address.id}
                 onPress={() => {
@@ -177,7 +186,10 @@ const calculateDistance = async () => {
 
          {isSelected != null ?
           <View className="items-center justify-center w-screen px-2 mb-2">
-            <TouchableOpacity onPress={() => {navigation.navigate('Payments')}} className="bg-purple-600 rounded w-full">
+            <TouchableOpacity onPress={() => {
+              navigation.navigate('Payments')
+              setIsSelected(null)
+              }} className="bg-purple-600 rounded w-full">
               <Text className="text-white text-xl font-bold text-center px-2 py-3">Make Payment</Text>
             </TouchableOpacity>
           </View>

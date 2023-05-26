@@ -41,7 +41,6 @@ export default function DrawerStackScreen() {
                 <Drawer.Screen name="Single" component={SingleScreen} />
                 <Drawer.Screen name="Catscreen" component={CategoryScreen} />
 
-                <Drawer.Group screenOptions={{presentation: "model"}}>
                   <Drawer.Screen name="Chooseordertype" component={ChooseOrderType}/>
                   <Drawer.Screen name="Addaddress" component={AddAddressScreen}/>
                   <Drawer.Screen name="Singlestory" component={SingleStoryScreen}/>
@@ -58,7 +57,6 @@ export default function DrawerStackScreen() {
                   <Drawer.Screen name="Settings" component={Setting}/>
                   <Drawer.Screen name="Help" component={Help}/>
                   
-                </Drawer.Group>
 
                 </Drawer.Navigator> 
         </NavigationContainer>
