@@ -39,7 +39,10 @@ const HomeScreen = () => {
 
 
          {/* Body */}
-         <ScrollView nestedScrollEnabled={true}>
+         <ScrollView nestedScrollEnabled={true}
+         contentContainerStyle={{
+            paddingBottom: 0
+         }}>
 
         {/* Categories */}
             <CategoriesComponent/>

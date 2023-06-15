@@ -18,7 +18,7 @@ const checkMinLength = (val, minLength, key) => {
 
 export default function (data) {
 
-    const { email, phonenumber, username, address, password, password_confirmation } = data
+    const { email, phonenumber, username, address, password, password_confirmation, reset_token } = data
 
     if(email !== undefined){
         let emptyValidationText = checkEmpty(email, 'Please enter your email')
@@ -44,6 +44,18 @@ export default function (data) {
            }
         }
     } 
+    if(reset_token !== undefined){
+        let emptyValidationText = checkEmpty(reset_token, 'Please enter the reset token')
+        if(emptyValidationText !== '') {
+            return emptyValidationText;
+        }
+        else {
+            let minLengthValidation = checkMinLength(reset_token, 4, 'reset_token')
+            if(minLengthValidation !== ''){
+                return minLengthValidation
+           }
+        }
+    }
 
     if(username !== undefined){
         let emptyValidationText = checkEmpty(username, 'Please enter your username')

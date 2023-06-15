@@ -52,7 +52,7 @@ useEffect(() => {
       </View>
     </View>
     : */}
-    <View className="flex-row flex-wrap mt-2 pt-3 pb-4 w-screen justify-between bg-white h-screen">
+    <View className="flex-row flex-wrap mt-2 pt-3 pb-4 w-screen justify-between bg-white">
       {Categories.map((Category) => (
            <CategoryCard 
            key={Category.id}

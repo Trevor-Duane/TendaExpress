@@ -118,9 +118,9 @@ const LoginScreen = () => {
                         </View>
                     </View>
 
-                    <View className="px-3 py-2">
+                    <Pressable className="px-3 py-2" onPress={() => navigation.navigate('forgotpass')}>
                         <Text className="text-sm text-purple-600 font-thin">forgot password?</Text>
-                    </View>
+                    </Pressable>
 
                     <View className="px-3 w-screen">
                         <Pressable
