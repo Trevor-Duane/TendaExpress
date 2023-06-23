@@ -1,4 +1,7 @@
-export const GOOGLE_API_KEY = "AIzaSyCfafoy4XgvRmIUAPc1ESxOiTgAPbQkh-k"
+// export const GOOGLE_API_KEY = "AIzaSyCfafoy4XgvRmIUAPc1ESxOiTgAPbQkh-k"
+export const GOOGLE_API_KEY = "AIzaSyCEhVNGt_fOwsGAKOfwZEonm2sVngK5IeA"
+
+
 
 export const base_dis = 1000
 

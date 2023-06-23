@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCategory } from '../reducers/categorySlice';
 import { selectBasketItems, selectBasketTotal } from '../reducers/basketSlice';
 import { removeFromBasket, emptyBasket } from '../reducers/basketSlice';
+import {addOrderItems} from '../reducers/orderSlice';
 import { Image } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -104,7 +105,11 @@ const BasketScreen = () => {
             </Text>
           </View>
 
-        <TouchableOpacity className="rounded-lg bg-purple-600 p-2" style={{ display: items.length == 0  ? "none" : "flex"}} onPress={() => navigation.navigate('Chooseordertype')}>
+        <TouchableOpacity 
+          className="rounded-lg bg-purple-600 p-2"
+          style={{ display: items.length == 0  ? "none" : "flex"}}
+          onPress={() => navigation.navigate('Chooseordertype')}
+          >
                 <Text className="text-white text-center font-bold text-lg">Checkout</Text>
         </TouchableOpacity>
         </View>

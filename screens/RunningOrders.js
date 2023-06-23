@@ -142,7 +142,7 @@ const RunningOrders = () => {
             </View>
             ) : (
                 <ScrollView>
-                {orders.filter(order => order.order_status === "Preparing" || order.order_status === "Delivering").map(o => 
+                {orders.filter(order => order.order_status === "Preparing" || order.order_status === "New" || order.order_status === "Delivering").map(o => 
                 // {active.map(o => 
                         <OrderCard
                         key={o.id}

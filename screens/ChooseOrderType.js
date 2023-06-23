@@ -2,16 +2,31 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRoute, useNavigation } from '@react-navigation/native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { selectBasketItems, selectBasketTotal } from '../reducers/basketSlice';
 import { RestaurantLocation } from '../constants/maps';
 import React, {useEffect, useState} from 'react'
+import { addOrderType, addUserId, addOrderItems, addOrderTotal, addUsername, addUserContact, addDeliveryFee, addDeliveryLatitude, addDeliveryLongitude } from '../reducers/orderSlice';
 import { CheckCircleIcon, InformationCircleIcon, XCircleIcon } from 'react-native-heroicons/solid';
+import { useDispatch, useSelector } from "react-redux";
+
 
 const ChooseOrderType = () => {
 const navigation =  useNavigation();
 const [option, setOption] = useState("");
 const [isSelected, setIsSelected] = useState(null);
 
+const dispatch = useDispatch();
+
+const userData = useSelector((state) => state.auth.userData);
+const items = useSelector(selectBasketItems);
+const basketTotal = useSelector(selectBasketTotal)
+const orderData = useSelector((state) => state.order.orderData);
+
+
+console.log("orderData", orderData);
+
 const address = [{
+  delivery_fee: 0,
   address_latitude: "0.18441485939905478",
   address_longitude: "32.538370291740904"
 }]
@@ -48,17 +63,9 @@ useEffect(() => {
   const setType = async () => {
     try {
       if(isSelected == 1){
-        await AsyncStorage.setItem('serviceType', option)
-        await AsyncStorage.removeItem('saddress')
         console.log("theOption", isSelected, option)
     }
     else{
-      await AsyncStorage.setItem('saddress', JSON.stringify(address))
-      await AsyncStorage.setItem('serviceType', option)
-
-      const set = JSON.parse(await AsyncStorage.getItem('saddress'))
-
-      console.log("set address is",set)
       console.log("theOption", isSelected, option)
     }
     } catch (error) {
@@ -105,6 +112,12 @@ useEffect(() => {
           <TouchableOpacity
             onPressIn={() => {
               setIsSelected(ordertype.id)
+              dispatch(addOrderType(ordertype.value))
+              dispatch(addOrderItems(items))
+              dispatch(addOrderTotal(basketTotal))
+              dispatch(addUserId(userData.user.id))
+              dispatch(addUsername(userData.user.username))
+              dispatch(addUserContact(userData.user.phonenumber))
               setOption(ordertype.value)
             }}
               key={ordertype.id}

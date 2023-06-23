@@ -7,6 +7,7 @@ import { emptyBasket } from "../reducers/basketSlice";
 import React from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Updates from 'expo-updates'
+import { emptyData } from '../reducers/orderSlice';
 // import RNRestart from 'react-native-restart';
 // import { DevSettings } from 'react-native';
 
@@ -70,13 +71,14 @@ export default function PaymentSuccess({ navigation }) {
                 <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('Home')
-                  navigation.navigate('Track')
+                  // navigation.navigate('Track')
+                  dispatch(emptyData())
                   dispatch(emptyBasket())
-                  clearAsync()
-                  Updates.reloadAsync()
+                  // clearAsync()
+                  // Updates.reloadAsync()
                 }}
                 className="bg-purple-600 rounded w-full">
-                    <Text className="text-white text-base font-bold text-center px-3 py-2">View Order</Text>
+                    <Text className="text-white text-base font-bold text-center px-3 py-2">Finish Order</Text>
                 </TouchableOpacity>
             </View>
         </View>
