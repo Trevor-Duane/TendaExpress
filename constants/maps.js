@@ -1,5 +1,8 @@
 // export const GOOGLE_API_KEY = "AIzaSyCfafoy4XgvRmIUAPc1ESxOiTgAPbQkh-k"
 export const GOOGLE_API_KEY = "AIzaSyCEhVNGt_fOwsGAKOfwZEonm2sVngK5IeA"
+export const GOOGLE_API_KEY_PLACES = "AIzaSyCP6ppj_g03Z2Q3dQFqrSnpsJyM564ccZY"
+
+
 
 
 

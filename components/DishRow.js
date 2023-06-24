@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import Currency from 'react-currency-formatter';
 import React from 'react'
 import { MinusCircleIcon, PlusCircleIcon } from 'react-native-heroicons/solid';
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { addToBasket, selectBasketItemsWithId, removeFromBasket, selectBasketItems } from "../reducers/basketSlice";
 
 const DishRow = ({
@@ -29,7 +29,7 @@ const DishRow = ({
 
   return (
     <>
-      <TouchableOpacity onPress={() => setIsPressed(!isPressed)} className={`bg-white border p-4 border-gray-200  ${isPressed && "border-b-0"}`}>
+      <TouchableOpacity onPress={() => setIsPressed(!isPressed)} className={`bg-white border py-4 px-2 border-gray-200  ${isPressed && "border-b-0"}`}>
         <View className="flex-row">
           <View className="flex-1 pr-2">
             <Text className="text-lg">{item_name}</Text>

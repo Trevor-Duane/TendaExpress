@@ -9,7 +9,9 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 import { getUserData } from './utils/utils';
 import { saveUserData } from './actions/auth';
+import Geolocation from 'react-native-geolocation-service';
 
+// navigator.geolocation = require('react-native-geolocation-service');
 
 export default function App() {
 
